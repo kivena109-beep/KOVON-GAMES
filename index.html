@@ -3,92 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO HUB - 3D ULTIMATE</title>
+    <title>KIVENIOO HUB - MEGA GAMES</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
         :root { --neon: #00f3ff; --purple: #bc13fe; --dark: #000000; }
-        
         body, html { margin: 0; padding: 0; height: 100%; background: var(--dark); font-family: 'Cairo', sans-serif; overflow-x: hidden; color: white; scroll-behavior: smooth; }
 
-        /* حاوية الخلفية المتحركة (الفيديو) */
-        .video-bg-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden;
-        }
-        .video-bg {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.3) contrast(1.1); /* تعتيم وغبش بسيط عشان الألعاب تظهر */
-        }
-        /* طبقة حماية عشان الفيديو ما يمنعش الضغط */
-        .bg-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8));
-        }
+        .video-bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
+        .video-bg { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.3) contrast(1.1); }
+        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)); }
 
-        header {
-            padding: 40px 20px; text-align: center; border-bottom: 3px solid var(--neon);
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100;
-        }
-
-        header h1 {
-            font-family: 'Orbitron', sans-serif; font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0;
-            background: linear-gradient(90deg, #fff, var(--neon), var(--purple), #fff);
-            background-size: 200%; animation: glow 5s linear infinite;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: 5px; text-transform: uppercase;
-        }
-
+        header { padding: 30px 20px; text-align: center; border-bottom: 3px solid var(--neon); background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100; }
+        header h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 5vw, 3rem); margin: 0; background: linear-gradient(90deg, #fff, var(--neon), var(--purple), #fff); background-size: 200%; animation: glow 5s linear infinite; -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 3px; }
         @keyframes glow { to { background-position: 200%; } }
 
-        /* شريط الفئات الصايع */
-        .categories {
-            display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap;
-        }
-        .cat-tag {
-            padding: 6px 18px; border: 1px solid var(--neon); border-radius: 50px;
-            font-size: 0.85rem; font-weight: bold; cursor: pointer; transition: 0.3s;
-            background: rgba(0, 243, 255, 0.05); color: var(--neon);
-        }
-        .cat-tag:hover { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); }
+        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 40px 20px; max-width: 1400px; margin: 0 auto; }
 
-        .container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 30px; padding: 50px 20px; max-width: 1400px; margin: 0 auto;
-        }
+        .game-card { background: rgba(255, 255, 255, 0.03); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; transition: all 0.4s ease; text-decoration: none; color: white; display: block; backdrop-filter: blur(10px); }
+        .game-card:hover { transform: translateY(-10px); border-color: var(--neon); box-shadow: 0 15px 30px rgba(0, 243, 255, 0.3); background: rgba(255, 255, 255, 0.08); }
+        .game-card img { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
-        /* كارت اللعبة بنظام Glassmorphism المتطور */
-        .game-card {
-            background: rgba(255, 255, 255, 0.03); border-radius: 25px; overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            text-decoration: none; color: white; display: block; position: relative;
-            backdrop-filter: blur(10px);
-        }
-
-        .game-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            border-color: var(--neon);
-            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.3);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .game-card img {
-            width: 100%; height: 180px; object-fit: cover;
-            border-bottom: 2px solid rgba(255,255,255,0.05);
-        }
-
-        .game-info { padding: 20px; text-align: center; }
-        .game-info span { font-size: 1.15rem; font-weight: 700; display: block; margin-bottom: 12px; }
-
-        /* زر START GAME المتدرج الصايع */
-        .play-btn {
-            padding: 10px 30px; background: linear-gradient(45deg, var(--neon), var(--purple));
-            color: white; border-radius: 50px; font-size: 0.9rem; font-weight: bold;
-            display: inline-block; transition: 0.3s; border: none; text-transform: uppercase;
-        }
-
-        .game-card:hover .play-btn { transform: scale(1.15); box-shadow: 0 0 20px var(--neon); }
-
-        footer { text-align: center; padding: 40px; color: rgba(255,255,255,0.2); font-family: 'Orbitron'; font-size: 0.8rem; }
+        .game-info { padding: 15px; text-align: center; }
+        .game-info span { font-size: 1rem; font-weight: bold; display: block; margin-bottom: 10px; height: 40px; overflow: hidden; }
+        .play-btn { padding: 8px 20px; background: linear-gradient(45deg, var(--neon), var(--purple)); color: white; border-radius: 50px; font-size: 0.8rem; font-weight: bold; transition: 0.3s; border: none; }
     </style>
 </head>
 <body>
@@ -102,43 +39,42 @@
 
 <header>
     <h1>KIVENIOO HUB</h1>
-    <div class="categories">
-        <div class="cat-tag">Multiplayer#</div>
-        <div class="cat-tag">3D_Extreme#</div>
-        <div class="cat-tag">Racing#</div>
-        <div class="cat-tag">Shooter#</div>
-    </div>
+    <p style="color: var(--neon); font-size: 0.9rem; margin-top: 10px;">THE ULTIMATE 3D COLLECTION</p>
 </header>
 
 <div class="container" id="gameGrid"></div>
 
-<footer>
-    ESTABLISHED 2026 // KIVENIOO PRIVATE SERVER
-</footer>
-
 <script>
-    // قائمة الألعاب المعتمدة بالصور والروابط الشغالة
     const games = [
-        {title: "Combat Online", url: "https://www.miniplay.com/embed/combat-online", img: "https://img.gamedistribution.com/3966099b244d4766be336a11e8f237f8-512x512.jpeg"},
-        {title: "Madalin Cars 2", url: "https://www.miniplay.com/embed/madalin-stunt-cars-2", img: "https://img.gamedistribution.com/83424194091e4889899147746eb0639d-512x512.jpeg"},
-        {title: "Moto X3M 3D", url: "https://www.miniplay.com/embed/moto-x3m-spooky-land", img: "https://img.gamedistribution.com/131713d07e1570776b00511f5d6f194c-512x512.jpeg"},
-        {title: "Sniper Clash 3D", url: "https://www.miniplay.com/embed/sniper-clash-3d", img: "https://img.gamedistribution.com/d69e4f16599b45629c158580556e438c-512x512.jpeg"},
-        {title: "Shell Shockers", url: "https://www.miniplay.com/embed/shell-shockers", img: "https://img.gamedistribution.com/f73756d9532d43108f9c158580556e43-512x512.jpeg"},
-        {title: "Drift Hunters 3D", url: "https://www.miniplay.com/embed/drift-hunters", img: "https://img.gamedistribution.com/d7f1d439b1a044238e8e7a03007f3f1e-512x512.jpeg"},
-        {title: "Venge.io", url: "https://www.miniplay.com/embed/venge-io", img: "https://img.gamedistribution.com/f73756d9532d43108f9c158580556e43-512x512.jpeg"},
-        {title: "Football Cup", url: "https://www.miniplay.com/embed/football-cup-2021", img: "https://img.gamedistribution.com/c6f663f77b4d13b482270929f6974b-512x512.jpeg"}
+        // الألعاب الأساسية
+        {title: "Combat Online", url: "https://www.miniplay.com/embed/combat-online", id: "3966099b244d4766be336a11e8f237f8"},
+        {title: "Madalin Cars 2", url: "https://www.miniplay.com/embed/madalin-stunt-cars-2", id: "83424194091e4889899147746eb0639d"},
+        {title: "Sniper Clash 3D", url: "https://www.miniplay.com/embed/sniper-clash-3d", id: "d69e4f16599b45629c158580556e438c"},
+        {title: "Drift Hunters", url: "https://www.miniplay.com/embed/drift-hunters", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
+        
+        // الألعاب الجديدة
+        {title: "Subway Surfers", url: "https://www.miniplay.com/embed/subway-surfers", id: "f92087640f0c436688755b4869894371"},
+        {title: "Moto X3M 3D", url: "https://www.miniplay.com/embed/moto-x3m-spooky-land", id: "131713d07e1570776b00511f5d6f194c"},
+        {title: "Football Cup", url: "https://www.miniplay.com/embed/football-cup-2021", id: "c6f663f77b4d13b482270929f6974b"},
+        {title: "Shell Shockers", url: "https://www.miniplay.com/embed/shell-shockers", id: "f73756d9532d43108f9c158580556e43"},
+        {title: "Tank Hero 3D", url: "https://www.miniplay.com/embed/tank-hero-online", id: "02443965561085024469956461947e44"},
+        {title: "Basketball Stars", url: "https://www.miniplay.com/embed/basketball-stars", id: "f182c12574e44431945116743956485d"},
+        {title: "Jet Sky War", url: "https://www.miniplay.com/embed/jet-sky-water-shooting-games", id: "3965561085024469956461947e444319"},
+        {title: "Stickman Hook", url: "https://www.miniplay.com/embed/stickman-hook", id: "7c9e5e262a83151f1f9ea40f5cca0096"},
+        {title: "Traffic Run", url: "https://www.miniplay.com/embed/traffic-run", id: "68779956461947e44431955610850244"},
+        {title: "Penalty Shooters 2", url: "https://www.miniplay.com/embed/penalty-shooters-2", id: "b3f07a760f0c436688755b4869894371"},
+        {title: "Run 3", url: "https://www.miniplay.com/embed/run-3", id: "3965561085024469956461947e444320"},
+        {title: "Temple Run 2", url: "https://www.miniplay.com/embed/temple-run-2", id: "1085024469956461947e444319"}
     ];
 
     const grid = document.getElementById('gameGrid');
-    
     games.forEach(g => {
         const card = document.createElement('a');
         card.className = 'game-card';
         card.href = g.url;
-        card.target = "_blank"; // تفتح في صفحة جديدة عشان تشتغل طقة
-        
+        card.target = "_blank";
         card.innerHTML = `
-            <img src="${g.img}" alt="${g.title}" loading="lazy">
+            <img src="https://img.gamedistribution.com/${g.id}-512x512.jpeg" onerror="this.src='https://via.placeholder.com/512x512/000/00f3ff?text=3D+GAME'">
             <div class="game-info">
                 <span>${g.title}</span>
                 <div class="play-btn">START GAME ⚡</div>
