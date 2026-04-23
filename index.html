@@ -3,204 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO 3D ULTRA | منصة الألعاب</title>
+    <title>KIVENIOO ULTRA 3D | HOME EDITION</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00f3ff; --purple: #bc13fe; --dark: #000; }
-        
-        body, html { margin: 0; padding: 0; background: var(--dark); color: white; font-family: 'Cairo', sans-serif; overflow-x: hidden; height: 100%; }
+        :root { --neon: #00f3ff; --purple: #bc13fe; }
+        body, html { margin: 0; padding: 0; height: 100%; background: #000; font-family: 'Cairo', sans-serif; overflow-x: hidden; color: white; }
 
-        /* حاوية الخلفية الديناميكية (فيديو) */
-        .bg-video-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden;
+        /* فيديو خلفية ديناميكي فخم جداً */
+        .video-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            object-fit: cover; filter: brightness(0.4);
         }
-        .bg-video {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.3) blur(3px); /* تعتيم وغبش عشان الألعاب تظهر */
-        }
-        /* طبقة حماية عشان الفيديو ما يمنعش الضغط */
-        .bg-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: rgba(0,0,0,0.4);
+
+        .overlay-dark {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
         }
 
         header {
-            padding: 20px; text-align: center; background: rgba(0,0,0,0.7);
-            border-bottom: 2px solid var(--neon); backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 100;
+            padding: 30px; text-align: center; border-bottom: 3px solid var(--neon);
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); sticky; top: 0; z-index: 100;
         }
 
         header h1 {
-            font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 4vw, 2.5rem); margin: 0;
+            font-family: 'Orbitron', sans-serif; font-size: 3rem; margin: 0;
             background: linear-gradient(90deg, var(--neon), var(--purple), var(--neon));
-            background-size: 200%; animation: shine 4s linear infinite;
+            background-size: 200%; animation: glow 3s linear infinite;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px var(--neon));
+            filter: drop-shadow(0 0 15px var(--neon));
         }
-        @keyframes shine { to { background-position: 200%; } }
+
+        @keyframes glow { to { background-position: 200%; } }
 
         .container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 25px; padding: 40px 20px; max-width: 1400px; margin: 0 auto;
-            position: relative; z-index: 10;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px; padding: 40px; max-width: 1400px; margin: 0 auto;
         }
 
-        /* كارت اللعبة الـ 3D الفخم */
         .game-card {
-            background: rgba(255, 255, 255, 0.05); border-radius: 20px; overflow: hidden;
-            border: 1px solid rgba(0, 243, 255, 0.15); cursor: pointer;
+            background: rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden;
+            border: 1px solid rgba(0,243,255,0.2); cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(5px); position: relative;
+            backdrop-filter: blur(10px); position: relative;
         }
 
         .game-card:hover {
-            transform: scale(1.08) translateY(-10px); border-color: var(--neon);
-            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.4);
+            transform: scale(1.1) rotate(2deg); border-color: var(--neon);
+            box-shadow: 0 0 40px rgba(0,243,255,0.5);
         }
 
-        /* علامة 3D على الكارت */
-        .game-card::after {
-            content: '3D'; position: absolute; top: 10px; right: 10px;
-            background: linear-gradient(45deg, var(--neon), var(--purple));
-            color: #000; font-family: 'Orbitron', sans-serif; font-weight: bold;
-            font-size: 0.7rem; padding: 3px 8px; border-radius: 5px;
-            box-shadow: 0 0 10px var(--neon); z-index: 5;
+        .game-card img { width: 100%; height: 160px; object-fit: cover; }
+        
+        .game-card::before {
+            content: "4K 3D"; position: absolute; top: 10px; left: 10px;
+            background: var(--purple); font-size: 10px; padding: 2px 8px;
+            border-radius: 4px; font-family: 'Orbitron'; z-index: 2;
         }
-
-        .game-card img {
-            width: 100%; height: 150px; object-fit: cover;
-            transition: 0.3s; filter: grayscale(20%);
-        }
-        .game-card:hover img { filter: grayscale(0%); }
 
         .game-info {
-            padding: 15px; text-align: center; font-weight: bold; font-size: 0.95rem;
-            background: rgba(0,0,0,0.8); color: #fff;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 15px; text-align: center; font-weight: bold;
+            background: rgba(0,0,0,0.8); border-top: 1px solid var(--neon);
         }
 
-        /* واجهة اللعب السينمائية العملاقة */
-        .overlay {
+        /* Cinema Player */
+        .player-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 9999; flex-direction: column;
+            background: #000; z-index: 10000; flex-direction: column;
         }
-        .overlay.active { display: flex; }
+        .player-overlay.active { display: flex; }
 
-        .nav-bar {
+        .player-header {
             height: 60px; background: #111; display: flex; justify-content: space-between;
             align-items: center; padding: 0 25px; border-bottom: 2px solid var(--purple);
         }
 
         .close-btn {
             background: linear-gradient(45deg, #ff4757, #ff6b81); color: white;
-            border: none; padding: 10px 25px; border-radius: 12px; cursor: pointer;
-            font-family: 'Cairo'; font-weight: bold; font-size: 1rem;
-            transition: 0.3s; box-shadow: 0 0 15px rgba(255, 71, 87, 0.4);
+            border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer;
+            font-family: 'Cairo'; font-weight: bold; box-shadow: 0 0 15px rgba(255,71,87,0.5);
         }
-        .close-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(255, 71, 87, 0.6); }
 
-        iframe { flex-grow: 1; border: none; width: 100%; height: 100%; background: #000; }
-
-        /* علامة التحميل (النيون) */
-        .loader {
+        iframe { flex-grow: 1; border: none; width: 100%; background: #000; }
+        
+        .loader-ring {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 80px; height: 80px; border: 6px solid #1a1a1a; border-top-color: var(--neon);
+            width: 100px; height: 100px; border: 8px solid #222; border-top: 8px solid var(--neon);
             border-radius: 50%; animation: spin 1s infinite linear; z-index: -1;
-            box-shadow: 0 0 15px var(--neon);
         }
         @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-        footer { text-align: center; padding: 30px; color: rgba(255,255,255,0.3); font-size: 0.8rem; position: relative; z-index: 10; }
-
     </style>
 </head>
 <body>
 
-<div class="bg-video-container">
-    <video class="bg-video" autoplay loop muted playsinline>
-        <source src="https://status.crazygames.com/b2b/cg-v6.mp4" type="video/mp4">
-    </video>
-</div>
-<div class="bg-overlay"></div>
+<video class="video-bg" autoplay loop muted playsinline>
+    <source src="https://v.ftcdn.net/05/56/15/45/700_F_556154562_AsLdZtZf1D6CgGv9p0AAmf8m9K0ZpW6m_ST.mp4" type="video/mp4">
+</video>
+<div class="overlay-dark"></div>
 
 <header>
-    <h1>KIVENIOO 3D ULTRA</h1>
-    <p style="color: var(--neon); margin: 5px 0 0; font-size: clamp(0.7rem, 2vw, 0.9rem); letter-spacing: 3px;">PURES 3D GAMING ZONE</p>
+    <h1>KIVENIOO HOME HUB</h1>
+    <p style="color: var(--neon); letter-spacing: 5px;">EXTREME 3D EXPERIENCE</p>
 </header>
 
-<div class="container" id="gamesGrid">
-    </div>
+<div class="container" id="gameGrid"></div>
 
-<div class="overlay" id="overlay">
-    <div class="nav-bar">
-        <span style="color: var(--neon); font-family: 'Orbitron'; font-size: clamp(0.8rem, 2vw, 1rem);">KIVENIOO ELITE PLAYER V4.0</span>
-        <button class="close-btn" onclick="closeGame()">العودة X</button>
+<div class="player-overlay" id="player">
+    <div class="player-header">
+        <span id="playingTitle" style="color: var(--neon); font-family: 'Orbitron';">KIVENIOO ENGINE...</span>
+        <button class="close-btn" onclick="closeGame()">إغلاق اللعبة X</button>
     </div>
-    <div class="loader"></div>
+    <div class="loader-ring"></div>
     <iframe id="gameIframe" src="" allowfullscreen allow="autoplay; fullscreen; keyboard"></iframe>
 </div>
 
-<footer>
-    تم التصميم لـ Kivenioo © 2026 | ألعاب 3D حصرية
-</footer>
-
 <script>
-    // قائمة بـ 30 لعبة 3D فشيخة (مختارة بعناية)
+    // أقوى ألعاب 3D محتاجة نت قوي (زي اللي عندك في البيت)
     const games = [
-        {title: "Combat Online (3D FPS)", id: "3966099b244d4766be336a11e8f237f8"},
+        {title: "Combat Online", id: "3966099b244d4766be336a11e8f237f8"},
         {title: "Madalin Stunt Cars 2", id: "83424194091e4889899147746eb0639d"},
-        {title: "Rebel Forces (3D FPS)", id: "f73756d9532d43108f9c158580556e43"},
-        {title: "Moto X3M (3D Race)", id: "131713d07e1570776b00511f5d6f194c"},
-        {title: "Realistic City Parking", id: "68779956461947e44431955610850244"},
         {title: "Sniper Clash 3D", id: "d69e4f16599b45629c158580556e438c"},
-        {title: "Drift King (3D)", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {title: "Soccer Skills (3D)", id: "f2700ca7256149ef9fa67916964259b3"},
-        {title: "Airport Clash 3D", id: "8580556e438cd69e4f16599b45629c15"},
-        {title: "Basketball Stars 3D", id: "f182c12574e44431945116743956485d"},
-        {title: "Zombie Shooter (3D)", id: "b3f07a760f0c436688755b4869894371"},
-        {title: "Air Force Wars 3D", id: "3965561085024469956461947e444319"},
-        {title: "GrandPrix (3D Race)", id: "83424194091e4889899147746eb0639d"},
-        {title: "StreetFight 3D", id: "6c906663f77b4d13b482270929f6974b"},
-        {title: "Tank Battle 3D", id: "02443965561085024469956461947e44"},
-        {title: "Moto Road Rash 3D", id: "131713d07e1570776b00511f5d6f194c"},
-        {title: "Pixel Combat 3D", id: "3966099b244d4766be336a11e8f237f8"},
-        {title: "Cyberpunk Cars", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {title: "Penalty Rivals (3D)", id: "7c9e5e262a83151f1f9ea40f5cca0096"},
-        {title: "Flying Sim 3D", id: "3965561085024469956461947e444319"},
-        {title: "Combat 5 (3D FPS)", id: "3966099b244d4766be336a11e8f237f8"},
-        {title: "Drift Hunter 3D", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {title: "MotoFury 3D", id: "131713d07e1570776b00511f5d6f194c"},
-        {title: "Venge.io (3D Style)", id: "f73756d9532d43108f9c158580556e43"},
-        {title: "Football Cup 3D", id: "f2700ca7256149ef9fa67916964259b3"},
-        {title: "Pixel Gun 3D", id: "d69e4f16599b45629c158580556e438c"},
-        {title: "Rally Master 3D", id: "83424194091e4889899147746eb0639d"},
-        {title: "Street Boxing 3D", id: "6c906663f77b4d13b482270929f6974b"},
-        {title: "Airport Fury 3D", id: "8580556e438cd69e4f16599b45629c15"},
-        {title: "Zombie Road 3D", id: "b3f07a760f0c436688755b4869894371"}
+        {title: "Moto X3M 3D", id: "131713d07e1570776b00511f5d6f194c"},
+        {title: "Rebel Forces", id: "f73756d9532d43108f9c158580556e43"},
+        {title: "Drift King 3D", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
+        {title: "Airport Clash 3D", id: "f2700ca7256149ef9fa67916964259b3"},
+        {title: "City Car Driver 3D", id: "68779956461947e44431955610850244"},
+        {title: "Subway 3D Pro", id: "f92087640f0c436688755b4869894371"},
+        {title: "Zombie Siege 3D", id: "b3f07a760f0c436688755b4869894371"},
+        {title: "Fighter Jets 3D", id: "3965561085024469956461947e444319"},
+        {title: "Basketball 3D", id: "f182c12574e44431945116743956485d"}
     ];
 
-    const grid = document.getElementById('gamesGrid');
+    const grid = document.getElementById('gameGrid');
     
-    // إنشاء الكروت تلقائياً
-    games.forEach(game => {
+    games.forEach(g => {
         const card = document.createElement('div');
         card.className = 'game-card';
         card.onclick = () => {
-            document.getElementById('overlay').classList.add('active');
-            // استخدام رابط سريع مباشر لضمان التشغيل في المدرسة
-            document.getElementById('gameIframe').src = `https://html5.gamedistribution.com/${game.id}/?gdpr-tracking=0`;
+            document.getElementById('playingTitle').innerText = g.title;
+            document.getElementById('player').classList.add('active');
+            document.getElementById('gameIframe').src = `https://html5.gamedistribution.com/${g.id}/`;
             document.body.style.overflow = 'hidden';
         };
         card.innerHTML = `
-            <img src="https://img.gamedistribution.com/${game.id}-512x512.jpeg" loading="lazy" alt="${game.title}">
-            <div class="game-info">${game.title}</div>
+            <img src="https://img.gamedistribution.com/${g.id}-512x512.jpeg">
+            <div class="game-info">${g.title}</div>
         `;
         grid.appendChild(card);
     });
 
     function closeGame() {
-        document.getElementById('overlay').classList.remove('active');
-        document.getElementById('gameIframe').src = ''; // إيقاف اللعبة والصوت
+        document.getElementById('player').classList.remove('active');
+        document.getElementById('gameIframe').src = '';
         document.body.style.overflow = 'auto';
     }
 </script>
