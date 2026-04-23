@@ -9,10 +9,10 @@
         :root { --neon: #00f3ff; --purple: #bc13fe; }
         body, html { margin: 0; padding: 0; height: 100%; background: #000; font-family: 'Cairo', sans-serif; overflow-x: hidden; color: white; }
 
-        /* فيديو خلفية ديناميكي فخم جداً */
+        /* خلفية الفيديو السينمائية */
         .video-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            object-fit: cover; filter: brightness(0.4);
+            object-fit: cover; filter: brightness(0.4) blur(2px);
         }
 
         .overlay-dark {
@@ -23,11 +23,11 @@
 
         header {
             padding: 30px; text-align: center; border-bottom: 3px solid var(--neon);
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); sticky; top: 0; z-index: 100;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100;
         }
 
         header h1 {
-            font-family: 'Orbitron', sans-serif; font-size: 3rem; margin: 0;
+            font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 5vw, 3rem); margin: 0;
             background: linear-gradient(90deg, var(--neon), var(--purple), var(--neon));
             background-size: 200%; animation: glow 3s linear infinite;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -37,28 +37,28 @@
         @keyframes glow { to { background-position: 200%; } }
 
         .container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 25px; padding: 40px; max-width: 1400px; margin: 0 auto;
         }
 
         .game-card {
-            background: rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden;
-            border: 1px solid rgba(0,243,255,0.2); cursor: pointer;
+            background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden;
+            border: 1px solid rgba(0,243,243,0.2); cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(10px); position: relative;
+            text-decoration: none; color: white; display: block;
         }
 
         .game-card:hover {
-            transform: scale(1.1) rotate(2deg); border-color: var(--neon);
+            transform: scale(1.1) rotate(1deg); border-color: var(--neon);
             box-shadow: 0 0 40px rgba(0,243,255,0.5);
         }
 
-        .game-card img { width: 100%; height: 160px; object-fit: cover; }
+        .game-card img { width: 100%; height: 150px; object-fit: cover; }
         
-        .game-card::before {
-            content: "4K 3D"; position: absolute; top: 10px; left: 10px;
-            background: var(--purple); font-size: 10px; padding: 2px 8px;
-            border-radius: 4px; font-family: 'Orbitron'; z-index: 2;
+        .badge {
+            position: absolute; top: 10px; left: 10px; background: var(--purple);
+            font-size: 10px; padding: 2px 8px; border-radius: 4px; font-family: 'Orbitron';
         }
 
         .game-info {
@@ -66,32 +66,12 @@
             background: rgba(0,0,0,0.8); border-top: 1px solid var(--neon);
         }
 
-        /* Cinema Player */
-        .player-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 10000; flex-direction: column;
-        }
-        .player-overlay.active { display: flex; }
-
-        .player-header {
-            height: 60px; background: #111; display: flex; justify-content: space-between;
-            align-items: center; padding: 0 25px; border-bottom: 2px solid var(--purple);
+        .play-btn {
+            margin-top: 10px; display: inline-block; padding: 5px 15px;
+            background: var(--neon); color: black; border-radius: 5px; font-size: 0.8rem;
         }
 
-        .close-btn {
-            background: linear-gradient(45deg, #ff4757, #ff6b81); color: white;
-            border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer;
-            font-family: 'Cairo'; font-weight: bold; box-shadow: 0 0 15px rgba(255,71,87,0.5);
-        }
-
-        iframe { flex-grow: 1; border: none; width: 100%; background: #000; }
-        
-        .loader-ring {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 100px; height: 100px; border: 8px solid #222; border-top: 8px solid var(--neon);
-            border-radius: 50%; animation: spin 1s infinite linear; z-index: -1;
-        }
-        @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+        footer { text-align: center; padding: 20px; color: #555; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -103,60 +83,53 @@
 
 <header>
     <h1>KIVENIOO HOME HUB</h1>
-    <p style="color: var(--neon); letter-spacing: 5px;">EXTREME 3D EXPERIENCE</p>
+    <p style="color: var(--neon); letter-spacing: 5px; margin: 5px 0 0;">3D GAMING REVOLUTION</p>
 </header>
 
-<div class="container" id="gameGrid"></div>
-
-<div class="player-overlay" id="player">
-    <div class="player-header">
-        <span id="playingTitle" style="color: var(--neon); font-family: 'Orbitron';">KIVENIOO ENGINE...</span>
-        <button class="close-btn" onclick="closeGame()">إغلاق اللعبة X</button>
+<div class="container" id="gameGrid">
     </div>
-    <div class="loader-ring"></div>
-    <iframe id="gameIframe" src="" allowfullscreen allow="autoplay; fullscreen; keyboard"></iframe>
-</div>
+
+<footer>
+    Designed for KIVENIOO | 2026
+</footer>
 
 <script>
-    // أقوى ألعاب 3D محتاجة نت قوي (زي اللي عندك في البيت)
+    // قائمة الألعاب - اخترت لك روابط مباشرة وسريعة جداً
     const games = [
         {title: "Combat Online", id: "3966099b244d4766be336a11e8f237f8"},
-        {title: "Madalin Stunt Cars 2", id: "83424194091e4889899147746eb0639d"},
+        {title: "Madalin Cars 2", id: "83424194091e4889899147746eb0639d"},
         {title: "Sniper Clash 3D", id: "d69e4f16599b45629c158580556e438c"},
         {title: "Moto X3M 3D", id: "131713d07e1570776b00511f5d6f194c"},
         {title: "Rebel Forces", id: "f73756d9532d43108f9c158580556e43"},
         {title: "Drift King 3D", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {title: "Airport Clash 3D", id: "f2700ca7256149ef9fa67916964259b3"},
-        {title: "City Car Driver 3D", id: "68779956461947e44431955610850244"},
-        {title: "Subway 3D Pro", id: "f92087640f0c436688755b4869894371"},
-        {title: "Zombie Siege 3D", id: "b3f07a760f0c436688755b4869894371"},
-        {title: "Fighter Jets 3D", id: "3965561085024469956461947e444319"},
-        {title: "Basketball 3D", id: "f182c12574e44431945116743956485d"}
+        {title: "Airport Clash", id: "f2700ca7256149ef9fa67916964259b3"},
+        {title: "Subway Runner", id: "f92087640f0c436688755b4869894371"},
+        {title: "Zombie Road", id: "b3f07a760f0c436688755b4869894371"},
+        {title: "Basketball Stars", id: "f182c12574e44431945116743956485d"},
+        {title: "City Parking", id: "68779956461947e44431955610850244"},
+        {title: "Tank Hero", id: "02443965561085024469956461947e44"}
     ];
 
     const grid = document.getElementById('gameGrid');
     
     games.forEach(g => {
-        const card = document.createElement('div');
+        // هنا السر: استخدمنا رابط مباشر يفتح في صفحة جديدة
+        const card = document.createElement('a');
         card.className = 'game-card';
-        card.onclick = () => {
-            document.getElementById('playingTitle').innerText = g.title;
-            document.getElementById('player').classList.add('active');
-            document.getElementById('gameIframe').src = `https://html5.gamedistribution.com/${g.id}/`;
-            document.body.style.overflow = 'hidden';
-        };
+        card.href = `https://html5.gamedistribution.com/${g.id}/`;
+        card.target = "_blank"; // يفتح في Tab جديد عشان اللعبة تشتغل 100%
+        
         card.innerHTML = `
+            <div class="badge">4K 3D</div>
             <img src="https://img.gamedistribution.com/${g.id}-512x512.jpeg">
-            <div class="game-info">${g.title}</div>
+            <div class="game-info">
+                ${g.title}
+                <br>
+                <span class="play-btn">إلعب الآن ⚡</span>
+            </div>
         `;
         grid.appendChild(card);
     });
-
-    function closeGame() {
-        document.getElementById('player').classList.remove('active');
-        document.getElementById('gameIframe').src = '';
-        document.body.style.overflow = 'auto';
-    }
 </script>
 
 </body>
