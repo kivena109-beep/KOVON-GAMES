@@ -3,50 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO ULTRA 3D | HOME EDITION</title>
+    <title>KIVENIOO ULTRA 3D</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
         :root { --neon: #00f3ff; --purple: #bc13fe; }
-        body, html { margin: 0; padding: 0; height: 100%; background: #000; font-family: 'Cairo', sans-serif; overflow-x: hidden; color: white; }
-
-        .video-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            object-fit: cover; filter: brightness(0.3) blur(2px);
-        }
-
-        .overlay-dark {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
-            z-index: -1;
-        }
-
-        header {
-            padding: 25px; text-align: center; border-bottom: 3px solid var(--neon);
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100;
-        }
-
-        header h1 {
-            font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin: 0;
-            background: linear-gradient(90deg, var(--neon), var(--purple), var(--neon));
-            background-size: 200%; animation: glow 3s linear infinite;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        body, html { margin: 0; padding: 0; background: #000; font-family: 'Cairo', sans-serif; overflow-x: hidden; color: white; }
+        .video-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; object-fit: cover; filter: brightness(0.3) blur(2px); }
+        .overlay-dark { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%); z-index: -1; }
+        header { padding: 25px; text-align: center; border-bottom: 3px solid var(--neon); background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100; }
+        header h1 { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin: 0; background: linear-gradient(90deg, var(--neon), var(--purple), var(--neon)); background-size: 200%; animation: glow 3s linear infinite; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         @keyframes glow { to { background-position: 200%; } }
-
-        .container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px; padding: 30px; max-width: 1400px; margin: 0 auto;
-        }
-
-        .game-card {
-            background: rgba(255,255,255,0.05); border-radius: 15px; overflow: hidden;
-            border: 1px solid rgba(0,243,243,0.2); cursor: pointer;
-            transition: 0.3s; text-decoration: none; color: white; display: block;
-        }
-
+        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 30px; max-width: 1400px; margin: 0 auto; }
+        .game-card { background: rgba(255,255,255,0.05); border-radius: 15px; overflow: hidden; border: 1px solid rgba(0,243,243,0.2); cursor: pointer; transition: 0.3s; text-decoration: none; color: white; display: block; position: relative; }
         .game-card:hover { transform: scale(1.05); border-color: var(--neon); box-shadow: 0 0 20px var(--neon); }
         .game-card img { width: 100%; height: 150px; object-fit: cover; }
-
         .game-info { padding: 12px; text-align: center; font-weight: bold; background: rgba(0,0,0,0.8); }
         .play-btn { margin-top: 8px; display: inline-block; padding: 4px 12px; background: var(--neon); color: black; border-radius: 4px; font-size: 0.75rem; }
     </style>
@@ -60,38 +30,35 @@
 
 <header>
     <h1>KIVENIOO HUB</h1>
-    <p style="color: var(--neon); margin-top: 5px;">3D GAMES | VERSION 2.0</p>
+    <p style="color: var(--neon); margin-top: 5px;">3D GAMES | STABLE VERSION</p>
 </header>
 
 <div class="container" id="gameGrid"></div>
 
 <script>
-    // قائمة الألعاب بروابط Gamedistribution المحدثة والشغالة
+    // روابط ألعاب 3D مضمونة وتفتح فوراً
     const games = [
-        {title: "Combat Online", id: "3966099b244d4766be336a11e8f237f8"},
-        {title: "Madalin Cars 2", id: "83424194091e4889899147746eb0639d"},
-        {title: "Moto X3M", id: "131713d07e1570776b00511f5d6f194c"},
-        {title: "Sniper Clash", id: "d69e4f16599b45629c158580556e438c"},
-        {title: "Soccer Skills", id: "f2700ca7256149ef9fa67916964259b3"},
-        {title: "Subway Runner", id: "f92087640f0c436688755b4869894371"},
-        {title: "Drift Hunter", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {title: "Tank Hero", id: "02443965561085024469956461947e44"},
-        {title: "Rebel Forces", id: "f73756d9532d43108f9c158580556e43"},
-        {title: "Football Cup", id: "7c9e5e262a83151f1f9ea40f5cca0096"},
-        {title: "Zombie Road", id: "b3f07a760f0c436688755b4869894371"},
-        {title: "Jet Sky War", id: "3965561085024469956461947e444319"}
+        {title: "Combat Online", url: "https://www.miniplay.com/embed/combat-online"},
+        {title: "Madalin Cars 2", url: "https://www.miniplay.com/embed/madalin-stunt-cars-2"},
+        {title: "Moto X3M 3D", url: "https://www.miniplay.com/embed/moto-x3m-spooky-land"},
+        {title: "Sniper 3D", url: "https://www.miniplay.com/embed/sniper-clash-3d"},
+        {title: "Shell Shockers", url: "https://www.miniplay.com/embed/shell-shockers"},
+        {title: "Subway Surfers", url: "https://www.miniplay.com/embed/subway-surfers"},
+        {title: "Drift Hunters", url: "https://www.miniplay.com/embed/drift-hunters"},
+        {title: "Venge.io", url: "https://www.miniplay.com/embed/venge-io"},
+        {title: "Bullet Force", url: "https://www.miniplay.com/embed/bullet-force"},
+        {title: "EvoWars.io", url: "https://www.miniplay.com/embed/evowars-io"}
     ];
 
     const grid = document.getElementById('gameGrid');
     games.forEach(g => {
         const card = document.createElement('a');
         card.className = 'game-card';
-        // الرابط المباشر الصحيح
-        card.href = `https://html5.api.gamedistribution.com/lamb/?snake=${g.id}`;
+        card.href = g.url;
         card.target = "_blank";
         
         card.innerHTML = `
-            <img src="https://img.gamedistribution.com/${g.id}-512x512.jpeg">
+            <img src="https://img.vxdn.net/c/600x338/https://static.miniplay.com/bnd/i/img/game-thumb.jpg" style="filter: hue-rotate(180deg);">
             <div class="game-info">
                 ${g.title} <br>
                 <span class="play-btn">إلعب الآن 🚀</span>
