@@ -3,88 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO ULTIMATE HUB</title>
+    <title>KIVENIOO PRO GAMES</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00f3ff; --purple: #bc13fe; --bg: #050505; }
-        body { background-color: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; overflow-x: hidden; }
+        :root { --neon: #00f3ff; --purple: #ff00ff; --dark: #080808; }
+        body { background: var(--dark); color: white; font-family: 'Cairo', sans-serif; margin: 0; }
         
-        .hero { height: 35vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://wallpaperaccess.com/full/416684.jpg'); background-size: cover; border-bottom: 2px solid var(--neon); text-align: center; }
-        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; margin: 0; background: linear-gradient(to right, var(--neon), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px var(--neon)); }
+        /* الهيدر الاحترافي */
+        header { padding: 20px; text-align: center; background: #000; border-bottom: 2px solid var(--purple); box-shadow: 0 0 20px rgba(255, 0, 255, 0.2); }
+        header h1 { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin: 0; color: var(--neon); text-shadow: 0 0 10px var(--neon); }
 
-        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 40px; max-width: 1300px; margin: 0 auto; }
-        
-        .game-card { background: #111; border-radius: 20px; overflow: hidden; border: 1px solid #333; cursor: pointer; transition: 0.4s; position: relative; }
-        .game-card:hover { transform: scale(1.05); border-color: var(--neon); box-shadow: 0 0 30px rgba(0, 243, 255, 0.3); }
-        .game-card img { width: 100%; height: 200px; object-fit: cover; }
-        .game-info { padding: 15px; text-align: center; background: #111; border-top: 1px solid #222; }
-        .game-title { font-weight: bold; font-size: 1.2rem; color: var(--neon); }
+        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; padding: 30px; }
 
-        /* وضع السينما التلقائي */
-        .game-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; flex-direction: column; }
+        /* كروت الألعاب بتصميم Poki */
+        .game-card { background: #151515; border-radius: 15px; overflow: hidden; border: 1px solid #222; cursor: pointer; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .game-card:hover { transform: scale(1.05); border-color: var(--purple); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .game-card img { width: 100%; height: 160px; object-fit: cover; }
+        .game-info { padding: 12px; text-align: center; background: #1a1a1a; font-weight: bold; font-size: 0.9rem; }
+
+        /* مشغل الألعاب العملاق */
+        .game-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; flex-direction: column; }
         .game-overlay.active { display: flex; }
-        .overlay-header { height: 60px; background: #111; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; border-bottom: 2px solid var(--neon); }
-        .close-btn { background: #ff4d4d; color: white; border: none; padding: 8px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; font-family: 'Cairo'; }
-        iframe { flex-grow: 1; width: 100%; border: none; background: #000; }
+        .overlay-nav { height: 50px; background: #111; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 1px solid var(--purple); }
+        .close-btn { background: #ff4757; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-family: 'Cairo'; }
+        iframe { flex-grow: 1; width: 100%; border: none; }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <h1>KIVENIOO HUB</h1>
-    <p style="letter-spacing: 2px;">ألعاب 3D احترافية بدون تقطيع</p>
-</div>
+<header>
+    <h1>KIVENIOO GAMES</h1>
+    <p style="font-size: 0.9rem; color: #888;">منصة الألعاب الأولى لعام 2026</p>
+</header>
 
 <div class="container">
     
-    <div class="game-card" onclick="openGame('https://html5.gamedistribution.com/3966099b244d4766be336a11e8f237f8/')">
-        <img src="https://img.gamedistribution.com/3966099b244d4766be336a11e8f237f8-512x512.jpeg" alt="Combat Online">
-        <div class="game-info">
-            <span class="game-title">Combat Online (3D)</span>
-            <p style="font-size: 0.8rem; color: #888;">أفضل لعبة ضرب نار أونلاين</p>
-        </div>
+    <div class="game-card" onclick="openGame('https://html5.gamedistribution.com/6c906663f77b4d13b482270929f6974b/')">
+        <img src="https://img.gamedistribution.com/6c906663f77b4d13b482270929f6974b-512x512.jpeg" alt="Action">
+        <div class="game-info">قتال شوارع 3D</div>
     </div>
 
-    <div class="game-card" onclick="openGame('https://html5.gamedistribution.com/83424194091e4889899147746eb0639d/')">
-        <img src="https://img.gamedistribution.com/83424194091e4889899147746eb0639d-512x512.jpeg" alt="Cars 3D">
-        <div class="game-info">
-            <span class="game-title">Madalin Stunt Cars 2</span>
-            <p style="font-size: 0.8rem; color: #888;">سباق وجرافيكس خرافي</p>
-        </div>
+    <div class="game-card" onclick="openGame('https://html5.gamedistribution.com/131713d07e1570776b00511f5d6f194c/')">
+        <img src="https://img.gamedistribution.com/131713d07e1570776b00511f5d6f194c-512x512.jpeg" alt="Moto">
+        <div class="game-info">Moto X3M (سباق)</div>
     </div>
 
-    <div class="game-card" onclick="openGame('https://html5.gamedistribution.com/f2700ca7256149ef9fa67916964259b3/')">
-        <img src="https://img.gamedistribution.com/f2700ca7256149ef9fa67916964259b3-512x512.jpeg" alt="Soccer">
-        <div class="game-info">
-            <span class="game-title">Soccer Skills</span>
-            <p style="font-size: 0.8rem; color: #888;">كأس العالم على تابلتك</p>
-        </div>
+    <div class="game-card" onclick="openGame('https://html5.gamedistribution.com/f92087640f0c436688755b4869894371/')">
+        <img src="https://img.gamedistribution.com/f92087640f0c436688755b4869894371-512x512.jpeg" alt="Run">
+        <div class="game-info">مغامرات الهروب HD</div>
+    </div>
+
+    <div class="game-card" onclick="openGame('https://html5.gamedistribution.com/d69e4f16599b45629c158580556e438c/')">
+        <img src="https://img.gamedistribution.com/d69e4f16599b45629c158580556e438c-512x512.jpeg" alt="Zombie">
+        <div class="game-info">Zombies Shooter (أكشن)</div>
+    </div>
+
+    <div class="game-card" onclick="openGame('https://html5.gamedistribution.com/f182c12574e44431945116743956485d/')">
+        <img src="https://img.gamedistribution.com/f182c12574e44431945116743956485d-512x512.jpeg" alt="Basketball">
+        <div class="game-info">كرة سلة المحترفين</div>
+    </div>
+
+    <div class="game-card" onclick="openGame('https://html5.gamedistribution.com/d7f1d439b1a044238e8e7a03007f3f1e/')">
+        <img src="https://img.gamedistribution.com/d7f1d439b1a044238e8e7a03007f3f1e-512x512.jpeg" alt="Drift">
+        <div class="game-info">Drift Cars (تفحيط)</div>
     </div>
 
 </div>
 
 <div class="game-overlay" id="gameOverlay">
-    <div class="overlay-header">
-        <span style="font-weight: bold; color: var(--neon); font-family: 'Orbitron';">KIVENIOO PLAY MODE</span>
-        <button class="close-btn" onclick="closeGame()">إغلاق اللعبة X</button>
+    <div class="overlay-nav">
+        <span style="color: var(--neon); font-family: 'Orbitron';">KIVENIOO GAMING...</span>
+        <button class="close-btn" onclick="closeGame()">العودة للموقع X</button>
     </div>
-    <iframe id="gameIframe" src="" allow="autoplay; fullscreen; keyboard"></iframe>
+    <iframe id="gameIframe" src="" allowfullscreen allow="autoplay; fullscreen; keyboard"></iframe>
 </div>
 
 <script>
     function openGame(url) {
-        const overlay = document.getElementById('gameOverlay');
-        const iframe = document.getElementById('gameIframe');
-        overlay.classList.add('active');
-        iframe.src = url;
+        document.getElementById('gameOverlay').classList.add('active');
+        document.getElementById('gameIframe').src = url;
         document.body.style.overflow = 'hidden';
     }
-
     function closeGame() {
-        const overlay = document.getElementById('gameOverlay');
-        const iframe = document.getElementById('gameIframe');
-        overlay.classList.remove('active');
-        iframe.src = '';
+        document.getElementById('gameOverlay').classList.remove('active');
+        document.getElementById('gameIframe').src = '';
         document.body.style.overflow = 'auto';
     }
 </script>
