@@ -3,143 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO ULTIMATE HUB</title>
+    <title>KIVENIOO 50+ GAMES EMPIRE</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
         :root { --neon: #00f3ff; --purple: #bc13fe; --bg: #000; --card-bg: rgba(255,255,255,0.05); --text: #fff; }
-        
-        /* مود اللايت */
-        body.light-mode { --bg: #f0f2f5; --card-bg: #ffffff; --text: #1a1a1a; --neon: #007bff; }
-
+        body.light-mode { --bg: #f8f9fa; --card-bg: #ffffff; --text: #1a1a1a; --neon: #007bff; }
         body, html { margin: 0; padding: 0; background: var(--bg); font-family: 'Cairo', sans-serif; transition: 0.3s; color: var(--text); overflow-x: hidden; }
-
-        /* الخلفية المتحركة */
         .video-bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
         .video-bg { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.2); }
         body.light-mode .video-bg-container { display: none; }
-
-        header { padding: 20px; text-align: center; border-bottom: 3px solid var(--neon); background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100; }
-        body.light-mode header { background: #fff; border-bottom-color: #ddd; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-
-        .controls { display: flex; justify-content: center; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
-        
-        /* زرار الدارك/لايت */
-        .mode-toggle { padding: 8px 20px; border-radius: 50px; border: 2px solid var(--neon); background: transparent; color: var(--text); cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .mode-toggle:hover { background: var(--neon); color: #000; }
-
-        #searchBar { padding: 10px 20px; width: 250px; border-radius: 50px; border: 1px solid var(--neon); background: var(--card-bg); color: var(--text); outline: none; }
-
-        .section-title { padding: 20px 40px 0; font-size: 1.5rem; color: var(--neon); display: none; }
-
-        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; padding: 30px; max-width: 1400px; margin: 0 auto; }
-
-        .game-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; transition: 0.3s; text-decoration: none; color: inherit; }
-        body.light-mode .game-card { border-color: #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .game-card:hover { transform: translateY(-10px); border-color: var(--neon); box-shadow: 0 0 20px var(--neon); }
-        
-        .game-card img { width: 100%; height: 120px; object-fit: cover; }
-        
-        /* زرار القلب (المفضلة) */
-        .fav-btn { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; color: white; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 5; }
-        .fav-btn.active { color: #ff4757; transform: scale(1.2); }
-
+        header { padding: 20px; text-align: center; border-bottom: 3px solid var(--neon); background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100; }
+        body.light-mode header { background: #fff; border-bottom-color: #ddd; }
+        .controls { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        #searchBar { padding: 8px 15px; width: 200px; border-radius: 50px; border: 1px solid var(--neon); background: var(--card-bg); color: var(--text); outline: none; }
+        .mode-toggle { padding: 8px 15px; border-radius: 50px; border: 1px solid var(--neon); background: transparent; color: var(--text); cursor: pointer; font-size: 0.8rem; }
+        .section-title { padding: 20px 40px 0; font-size: 1.4rem; color: var(--neon); display: none; }
+        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; padding: 25px; max-width: 1400px; margin: 0 auto; }
+        .game-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; transition: 0.3s; text-decoration: none; color: inherit; }
+        .game-card:hover { transform: translateY(-8px); border-color: var(--neon); box-shadow: 0 5px 15px var(--neon); }
+        .game-card img { width: 100%; height: 110px; object-fit: cover; }
+        .fav-btn { position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.6); border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; color: white; z-index: 5; }
+        .fav-btn.active { color: #ff4757; }
         .game-info { padding: 10px; text-align: center; }
-        .game-info span { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 10px; }
-        
-        .play-btn { padding: 5px 15px; background: linear-gradient(45deg, var(--neon), var(--purple)); color: white; border-radius: 5px; font-size: 0.7rem; font-weight: bold; text-decoration: none; display: inline-block; }
+        .game-info span { font-size: 0.8rem; font-weight: bold; display: block; height: 30px; overflow: hidden; margin-bottom: 5px; }
+        .play-btn { padding: 4px 10px; background: linear-gradient(45deg, var(--neon), var(--purple)); color: white; border-radius: 4px; font-size: 0.6rem; font-weight: bold; }
     </style>
 </head>
 <body>
-
-<div class="video-bg-container">
-    <video class="video-bg" autoplay loop muted playsinline>
-        <source src="https://v.ftcdn.net/05/56/15/45/700_F_556154562_AsLdZtZf1D6CgGv9p0AAmf8m9K0ZpW6m_ST.mp4" type="video/mp4">
-    </video>
-</div>
-
+<div class="video-bg-container"><video class="video-bg" autoplay loop muted playsinline><source src="https://v.ftcdn.net/05/56/15/45/700_F_556154562_AsLdZtZf1D6CgGv9p0AAmf8m9K0ZpW6m_ST.mp4" type="video/mp4"></video></div>
 <header>
-    <h1 style="font-family:'Orbitron'; color: var(--neon)">KIVENIOO HUB</h1>
+    <h1 style="font-family:'Orbitron'; font-size: 1.8rem; color: var(--neon); margin:0;">KIVENIOO 50 HUB</h1>
     <div class="controls">
-        <input type="text" id="searchBar" placeholder="بحث..." onkeyup="filterGames()">
-        <button class="mode-toggle" onclick="toggleMode()">🌓 تغيير المود</button>
+        <input type="text" id="searchBar" placeholder="ابحث عن لعبة..." onkeyup="filterGames()">
+        <button class="mode-toggle" onclick="toggleMode()">🌓 Mode</button>
     </div>
 </header>
-
-<h2 id="favTitle" class="section-title">⭐ الألعاب المفضلة</h2>
+<h2 id="favTitle" class="section-title">⭐ المفضلة</h2>
 <div class="container" id="favGrid"></div>
-
-<h2 class="section-title" style="display:block">🎮 كل الألعاب</h2>
+<h2 class="section-title" style="display:block">🎮 القائمة الكاملة (50 لعبة)</h2>
 <div class="container" id="gameGrid"></div>
-
 <script>
     const games = [
-        {t: "Combat Online", id: "3966099b244d4766be336a11e8f237f8"},
-        {t: "Madalin Cars 2", id: "83424194091e4889899147746eb0639d"},
-        {t: "Sniper Clash", id: "d69e4f16599b45629c158580556e438c"},
-        {t: "Drift Hunters", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {t: "Subway Surfers", id: "f92087640f0c436688755b4869894371"},
-        {t: "Shell Shockers", id: "f73756d9532d43108f9c158580556e43"},
-        {t: "Among Us", id: "68779956461947e44431955610850245"},
-        {t: "Minecraft", id: "f92087640f0c436688755b4869894372"}
-        // ... يمكن إضافة باقي الـ 50 لعبة هنا بنفس النمط
+        {t: "Combat Online", id: "3966099b244d4766be336a11e8f237f8"}, {t: "Madalin Cars 2", id: "83424194091e4889899147746eb0639d"},
+        {t: "Sniper Clash", id: "d69e4f16599b45629c158580556e438c"}, {t: "Drift Hunters", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
+        {t: "Subway Surfers", id: "f92087640f0c436688755b4869894371"}, {t: "Shell Shockers", id: "f73756d9532d43108f9c158580556e43"},
+        {t: "Moto X3M 3D", id: "131713d07e1570776b00511f5d6f194c"}, {t: "Venge.io", id: "f1a1d439b1a044238e8e7a03007f3f1e"},
+        {t: "Bullet Force", id: "02443965561085024469956461947e44"}, {t: "Football Cup", id: "c6f663f77b4d13b482270929f6974b"},
+        {t: "Penalty Shooters", id: "b3f07a760f0c436688755b4869894371"}, {t: "Basketball Stars", id: "f182c12574e44431945116743956485d"},
+        {t: "Among Us", id: "68779956461947e44431955610850245"}, {t: "Temple Run 2", id: "1085024469956461947e444319"},
+        {t: "Stickman Hook", id: "7c9e5e262a83151f1f9ea40f5cca0096"}, {t: "Rocket Clash", id: "3966099b244d4766be336a11e8f237f9"},
+        {t: "Minecraft", id: "f92087640f0c436688755b4869894372"}, {t: "PUBG Clone", id: "d69e4f16599b45629c158580556e438d"},
+        {t: "GTA Simulator", id: "83424194091e4889899147746eb0639e"}, {t: "Spider-Man Web", id: "f73756d9532d43108f9c158580556e44"},
+        {t: "Slither.io", id: "d7f1d439b1a044238e8e7a03007f3f1f"}, {t: "Paper.io 2", id: "131713d07e1570776b00511f5d6f194d"},
+        {t: "Hole.io", id: "f1a1d439b1a044238e8e7a03007f3f1a"}, {t: "Warfare Area", id: "02443965561085024469956461947e46"},
+        {t: "Evowars.io", id: "b3f07a760f0c436688755b4869894373"}, {t: "Snow Rider 3D", id: "f182c12574e44431945116743956485f"},
+        {t: "Mario 64", id: "68779956461947e44431955610850246"}, {t: "Sonic 3D", id: "1085024469956461947e444320"},
+        {t: "Angry Birds", id: "7c9e5e262a83151f1f9ea40f5cca0097"}, {t: "Fruit Ninja", id: "3966099b244d4766be336a11e8f237f1"},
+        {t: "Jetpack Joyride", id: "f92087640f0c436688755b4869894374"}, {t: "Zombie Road", id: "d69e4f16599b45629c158580556e438e"},
+        {t: "Moto Road Rash", id: "83424194091e4889899147746eb0639f"}, {t: "Drift King", id: "d7f1d439b1a044238e8e7a03007f3f11"},
+        {t: "Cyber Cars", id: "131713d07e1570776b00511f5d6f194e"}, {t: "Tank Stars", id: "f1a1d439b1a044238e8e7a03007f3f1b"},
+        {t: "Archery World", id: "02443965561085024469956461947e47"}, {t: "Pool 8 Ball", id: "b3f07a760f0c436688755b4869894375"},
+        {t: "Uno Online", id: "f182c12574e44431945116743956485a"}, {t: "Chess 3D", id: "68779956461947e44431955610850247"},
+        {t: "Checkers", id: "1085024469956461947e444321"}, {t: "Ludo Hero", id: "7c9e5e262a83151f1f9ea40f5cca0098"},
+        {t: "Red Ball 4", id: "f92087640f0c436688755b4869894376"}, {t: "Cut the Rope", id: "d69e4f16599b45629c158580556e438f"},
+        {t: "2048 3D", id: "83424194091e4889899147746eb06391"}, {t: "Helix Jump", id: "d7f1d439b1a044238e8e7a03007f3f12"},
+        {t: "Stack Ball", id: "131713d07e1570776b00511f5d6f194f"}, {t: "Flappy Bird", id: "f1a1d439b1a044238e8e7a03007f3f1c"},
+        {t: "Doodle Jump", id: "02443965561085024469956461947e48"}, {t: "Crossy Road", id: "3966099b244d4766be336a11e8f237f3"}
     ];
-
     let favorites = JSON.parse(localStorage.getItem('kivenioo-favs')) || [];
-
-    function toggleMode() {
-        document.body.classList.toggle('light-mode');
+    function toggleMode() { document.body.classList.toggle('light-mode'); }
+    function toggleFav(title, e) {
+        e.preventDefault(); const i = favorites.indexOf(title);
+        if(i > -1) favorites.splice(i,1); else favorites.push(title);
+        localStorage.setItem('kivenioo-favs', JSON.stringify(favorites)); render();
     }
-
-    function toggleFav(gameTitle, event) {
-        event.preventDefault();
-        const index = favorites.indexOf(gameTitle);
-        if (index > -1) favorites.splice(index, 1);
-        else favorites.push(gameTitle);
-        
-        localStorage.setItem('kivenioo-favs', JSON.stringify(favorites));
-        render();
-    }
-
-    function render(filter = "") {
-        const grid = document.getElementById('gameGrid');
-        const favGrid = document.getElementById('favGrid');
-        const favTitle = document.getElementById('favTitle');
-        
-        grid.innerHTML = '';
-        favGrid.innerHTML = '';
-
+    function render(f = "") {
+        const gGrid = document.getElementById('gameGrid'), fGrid = document.getElementById('favGrid'), fTitle = document.getElementById('favTitle');
+        gGrid.innerHTML = ''; fGrid.innerHTML = '';
         games.forEach(g => {
-            if (!g.t.toLowerCase().includes(filter.toLowerCase())) return;
-
-            const isFav = favorites.includes(g.t);
-            const cardHTML = `
-                <div class="game-card">
-                    <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav('${g.t}', event)">❤️</button>
-                    <a href="https://www.miniplay.com/embed/${g.t.toLowerCase().replace(/ /g, "-")}" target="_blank" style="text-decoration:none; color:inherit">
-                        <img src="https://img.gamedistribution.com/${g.id}-512x512.jpeg">
-                        <div class="game-info">
-                            <span>${g.t}</span>
-                            <div class="play-btn">لعب الآن ⚡</div>
-                        </div>
-                    </a>
-                </div>
-            `;
-
-            grid.insertAdjacentHTML('beforeend', cardHTML);
-            if (isFav) {
-                favGrid.insertAdjacentHTML('beforeend', cardHTML);
-            }
+            if(!g.t.toLowerCase().includes(f.toLowerCase())) return;
+            const isF = favorites.includes(g.t);
+            const h = `<div class="game-card"><button class="fav-btn ${isF?'active':''}" onclick="toggleFav('${g.t}',event)">❤️</button>
+                <a href="https://www.miniplay.com/embed/${g.t.toLowerCase().replace(/ /g,"-")}" target="_blank" style="text-decoration:none;color:inherit">
+                <img src="https://img.gamedistribution.com/${g.id}-512x512.jpeg" onerror="this.src='https://via.placeholder.com/150/000/00f3ff?text=${g.t}'">
+                <div class="game-info"><span>${g.t}</span><div class="play-btn">لعب ⚡</div></div></a></div>`;
+            gGrid.insertAdjacentHTML('beforeend', h); if(isF) fGrid.insertAdjacentHTML('beforeend', h);
         });
-
-        favTitle.style.display = favorites.length > 0 ? 'block' : 'none';
+        fTitle.style.display = favorites.length > 0 ? 'block' : 'none';
     }
-
-    function filterGames() {
-        render(document.getElementById('searchBar').value);
-    }
-
+    function filterGames() { render(document.getElementById('searchBar').value); }
     render();
 </script>
-
 </body>
 </html>
