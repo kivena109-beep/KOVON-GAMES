@@ -3,241 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO GAMING | ULTRA HUB</title>
+    <title>KIVENIOO ELITE | منصة الألعاب</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon: #00f3ff;
-            --purple: #bc13fe;
-            --dark: #020202;
-        }
+        :root { --neon: #00f3ff; --purple: #bc13fe; --dark: #020202; }
+        
+        body, html { margin: 0; padding: 0; background: var(--dark); color: white; font-family: 'Cairo', sans-serif; overflow-x: hidden; }
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            background: var(--dark);
-            color: white;
-            font-family: 'Cairo', sans-serif;
-            overflow-x: hidden;
+        /* خلفية جيمنج متحركة (ليزر نيون) */
+        .bg-animate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: linear-gradient(45deg, #050505, #0a0a0a, #050505);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
-
-        /* كود الخلفية المتحركة */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle, #0a0a0a 0%, #000 100%);
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         header {
-            padding: 30px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.8);
-            border-bottom: 2px solid var(--neon);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 25px; text-align: center; background: rgba(0,0,0,0.85);
+            border-bottom: 3px solid var(--neon); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
         }
 
         header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin: 0;
-            background: linear-gradient(to right, var(--neon), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px var(--neon));
-            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin: 0;
+            background: linear-gradient(90deg, var(--neon), var(--purple), var(--neon));
+            background-size: 200%; animation: shine 3s linear infinite;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        @keyframes shine { to { background-position: 200%; } }
 
         .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-            padding: 40px 20px;
-            max-width: 1400px;
-            margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 20px; padding: 30px; max-width: 1400px; margin: 0 auto;
         }
 
         .game-card {
-            background: rgba(20, 20, 20, 0.8);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.05); border-radius: 18px; overflow: hidden;
+            border: 1px solid rgba(0, 243, 255, 0.1); cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
         .game-card:hover {
-            transform: scale(1.05) translateY(-10px);
-            border-color: var(--neon);
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+            transform: scale(1.07); border-color: var(--neon);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.3);
         }
 
-        .game-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            filter: grayscale(20%);
-            transition: 0.3s;
-        }
-
-        .game-card:hover img {
-            filter: grayscale(0%);
-        }
+        .game-card img { width: 100%; height: 140px; object-fit: cover; }
 
         .game-info {
-            padding: 12px;
-            text-align: center;
-            background: rgba(0,0,0,0.6);
-            font-weight: bold;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 12px; text-align: center; font-weight: bold; font-size: 0.9rem;
+            background: rgba(0,0,0,0.7); color: #fff;
         }
 
-        /* وضع السينما المحترف */
+        /* واجهة اللعب (نظام السينما) */
         .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 10000;
-            flex-direction: column;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; flex-direction: column;
         }
-
         .overlay.active { display: flex; }
 
-        .overlay-nav {
-            height: 60px;
-            background: #111;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 25px;
-            border-bottom: 2px solid var(--purple);
+        .nav-bar {
+            height: 60px; background: #111; display: flex; justify-content: space-between;
+            align-items: center; padding: 0 20px; border-bottom: 2px solid var(--purple);
         }
 
         .close-btn {
-            background: linear-gradient(45deg, #ff4d4d, #b30000);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Cairo';
-            font-weight: bold;
-            box-shadow: 0 0 10px rgba(255,0,0,0.5);
+            background: linear-gradient(45deg, #ff4757, #ff6b81); color: white;
+            border: none; padding: 8px 20px; border-radius: 10px; cursor: pointer;
+            font-family: 'Cairo'; font-weight: bold; box-shadow: 0 0 15px rgba(255, 71, 87, 0.4);
         }
 
         iframe { flex-grow: 1; border: none; width: 100%; height: 100%; }
+
+        /* علامة التحميل */
+        .loader {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 60px; height: 60px; border: 5px solid #222; border-top-color: var(--neon);
+            border-radius: 50%; animation: spin 1s infinite linear; z-index: -1;
+        }
+        @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
     </style>
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
+<div class="bg-animate"></div>
 
 <header>
-    <h1>KIVENIOO HUB</h1>
-    <p style="color: var(--neon); letter-spacing: 2px; margin-top: 5px;">ULTRA GAMING EXPERIENCE</p>
+    <h1>KIVENIOO ELITE</h1>
+    <p style="color: var(--neon); margin: 5px 0 0; font-size: 0.8rem; letter-spacing: 2px;">GAMING REVOLUTION 2026</p>
 </header>
 
-<div class="container" id="gamesGrid"></div>
+<div class="container" id="gamesGrid">
+    </div>
 
 <div class="overlay" id="overlay">
-    <div class="overlay-nav">
-        <span style="color: var(--neon); font-family: 'Orbitron';">LIVE GAMING...</span>
-        <button class="close-btn" onclick="closeGame()">إغلاق اللعبة X</button>
+    <div class="nav-bar">
+        <span style="color: var(--neon); font-family: 'Orbitron';">KIVENIOO PLAYER V1.0</span>
+        <button class="close-btn" onclick="closeGame()">خروج X</button>
     </div>
+    <div class="loader"></div>
     <iframe id="gameIframe" src="" allowfullscreen allow="autoplay; fullscreen; keyboard"></iframe>
 </div>
 
 <script>
-    // الخلفية المتحركة (الجزيئات)
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 1;
-            this.speedX = Math.random() * 1 - 0.5;
-            this.speedY = Math.random() * 1 - 0.5;
-            this.color = Math.random() > 0.5 ? '#00f3ff' : '#bc13fe';
-        }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            if (this.x > canvas.width) this.x = 0;
-            if (this.x < 0) this.x = canvas.width;
-            if (this.y > canvas.height) this.y = 0;
-            if (this.y < 0) this.y = canvas.height;
-        }
-        draw() {
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    for (let i = 0; i < 100; i++) particles.push(new Particle());
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-    }
-    animate();
-
-    // قائمة الـ 30 لعبة (أقوى ألعاب 3D و 2D)
+    // قائمة بـ 30 لعبة فشيخة (مختارة عشان تشتغل على نت المدرسة)
     const games = [
-        {title: "Combat Online", id: "3966099b244d4766be336a11e8f237f8"},
-        {title: "Madalin Cars 2", id: "83424194091e4889899147746eb0639d"},
-        {title: "Moto X3M", id: "131713d07e1570776b00511f5d6f194c"},
-        {title: "Subway Surfers", id: "f92087640f0c436688755b4869894371"},
-        {title: "Sniper Clash", id: "d69e4f16599b45629c158580556e438c"},
+        {title: "Combat Online (3D)", id: "3966099b244d4766be336a11e8f237f8"},
+        {title: "Madalin Stunt 2", id: "83424194091e4889899147746eb0639d"},
+        {title: "Moto X3M (Race)", id: "131713d07e1570776b00511f5d6f194c"},
+        {title: "Subway Runners", id: "f92087640f0c436688755b4869894371"},
         {title: "Soccer Skills", id: "f2700ca7256149ef9fa67916964259b3"},
-        {title: "Rebel Forces", id: "f73756d9532d43108f9c158580556e43"},
-        {title: "EvoWorld.io", id: "974b77f972b9a7c369e9a4d33a696232"},
-        {title: "City Parking", id: "68779956461947e44431955610850244"},
-        {title: "Ninja Fight", id: "6c906663f77b4d13b482270929f6974b"},
+        {title: "Sniper Clash 3D", id: "d69e4f16599b45629c158580556e438c"},
         {title: "Drift King", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {title: "Basket Stars", id: "f182c12574e44431945116743956485d"},
-        {title: "Airport Clash", id: "8580556e438cd69e4f16599b45629c15"},
-        {title: "Zombie Siege", id: "b3f07a760f0c436688755b4869894371"},
-        {title: "Sky War 3D", id: "3965561085024469956461947e444319"},
-        {title: "Penalty Shooter", id: "7c9e5e262a83151f1f9ea40f5cca0096"},
-        {title: "Stickman Parkour", id: "512x512-3966099b244d4766be336a11e8f2"},
-        {title: "Rally Master", id: "a40f5cca00967c9e5e262a83151f1f9e"},
-        {title: "Cyber Cars", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {title: "Archer PRO", id: "390974b77f972b9a7c369e9a4d33a696"},
-        {title: "Tank Battle", id: "02443965561085024469956461947e44"},
-        {title: "Moto Fury", id: "131713d07e1570776b00511f5d6f194c"},
-        {title: "Biker Trial", id: "29f6974b6c906663f77b4d13b4822709"},
-        {title: "Extreme Car", id: "83424194091e4889899147746eb0639d"},
-        {title: "FPS Strike", id: "3966099b244d4766be336a11e8f237f8"},
-        {title: "Venge.io", id: "f73756d9532d43108f9c158580556e43"},
-        {title: "Super Soccer", id: "f2700ca7256149ef9fa67916964259b3"},
-        {title: "Pixel Gun", id: "d69e4f16599b45629c158580556e438c"},
-        {title: "Nitro Drift", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {title: "Boxing Kings", id: "6c906663f77b4d13b482270929f6974b"}
+        {title: "Ninja Action", id: "6c906663f77b4d13b482270929f6974b"},
+        {title: "Basketball Stars", id: "f182c12574e44431945116743956485d"},
+        {title: "Rebel Forces", id: "f73756d9532d43108f9c158580556e43"},
+        {title: "Tank Hero 3D", id: "02443965561085024469956461947e44"},
+        {title: "City Car Driver", id: "68779956461947e44431955610850244"},
+        {title: "Stickman Parkour", id: "390974b77f972b9a7c369e9a4d33a696"},
+        {title: "Zombie Shooter", id: "b3f07a760f0c436688755b4869894371"},
+        {title: "Penalty Rivals", id: "7c9e5e262a83151f1f9ea40f5cca0096"},
+        {title: "Cyber Cars Punk", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
+        {title: "Street Boxing", id: "6c906663f77b4d13b482270929f6974b"},
+        {title: "Moto Road Rash", id: "131713d07e1570776b00511f5d6f194c"},
+        {title: "Army Force 3D", id: "3966099b244d4766be336a11e8f237f8"},
+        {title: "Crazy Drifter", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
+        {title: "Bullet Party", id: "f73756d9532d43108f9c158580556e43"},
+        {title: "Speed Moto", id: "131713d07e1570776b00511f5d6f194c"},
+        {title: "Archer Master", id: "390974b77f972b9a7c369e9a4d33a696"},
+        {title: "Pro Football", id: "f2700ca7256149ef9fa67916964259b3"},
+        {title: "Sky War Jets", id: "3965561085024469956461947e444319"},
+        {title: "Grand Prix", id: "83424194091e4889899147746eb0639d"},
+        {title: "Shadow Ninja", id: "6c906663f77b4d13b482270929f6974b"},
+        {title: "City Rush", id: "f92087640f0c436688755b4869894371"},
+        {title: "Combat 5", id: "3966099b244d4766be336a11e8f237f8"},
+        {title: "Drift Hunter", id: "d7f1d439b1a044238e8e7a03007f3f1e"}
     ];
 
     const grid = document.getElementById('gamesGrid');
@@ -251,7 +158,7 @@
             document.body.style.overflow = 'hidden';
         };
         card.innerHTML = `
-            <img src="https://img.gamedistribution.com/${game.id}-512x512.jpeg" onerror="this.src='https://wallpaperaccess.com/full/416684.jpg'">
+            <img src="https://img.gamedistribution.com/${game.id}-512x512.jpeg" loading="lazy">
             <div class="game-info">${game.title}</div>
         `;
         grid.appendChild(card);
