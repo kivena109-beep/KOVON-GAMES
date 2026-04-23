@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO GAMES HUB</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Black+Ops+One&display=swap" rel="stylesheet">
+    <title>KIVENIOO ULTIMATE GAMING</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon: #00f3ff;
             --purple: #bc13fe;
-            --bg: #0a0a0c;
+            --bg: #020202;
         }
 
         body {
@@ -17,148 +17,216 @@
             color: white;
             font-family: 'Cairo', sans-serif;
             margin: 0;
-            padding: 0;
+            overflow-x: hidden;
         }
 
-        header {
-            background: linear-gradient(135deg, #121212, #000);
-            padding: 30px;
+        /* خلفية سينمائية متحركة */
+        .hero {
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://wallpaperaccess.com/full/416684.jpg');
+            background-size: cover;
+            background-position: center;
+            border-bottom: 2px solid var(--neon);
             text-align: center;
-            border-bottom: 3px solid var(--neon);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
         }
 
-        header h1 {
-            font-family: 'Black Ops One', system-ui;
-            font-size: 3rem;
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 8vw, 4rem);
             margin: 0;
             background: linear-gradient(to right, var(--neon), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px var(--neon));
         }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 40px;
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
+        /* كارت اللعبة الفخم */
         .game-card {
-            background: #1a1a1a;
-            border-radius: 20px;
+            background: #111;
+            border-radius: 15px;
             overflow: hidden;
-            border: 1px solid #333;
-            transition: 0.4s;
+            border: 1px solid #222;
+            cursor: pointer;
+            transition: 0.3s;
             position: relative;
         }
 
         .game-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
             border-color: var(--neon);
-            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
         }
 
-        iframe {
+        .game-card img {
             width: 100%;
-            height: 400px;
-            border: none;
-            background: #000;
+            height: 180px;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .game-card:hover img {
+            filter: brightness(1.2);
         }
 
         .game-info {
             padding: 15px;
+            text-align: center;
             background: #111;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .game-title {
             font-weight: bold;
             font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
         }
 
-        .play-now {
-            background: var(--neon);
-            color: black;
+        /* نافذة اللعبة ملء الشاشة (The Cinema) */
+        .game-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 10000;
+        }
+
+        .game-overlay.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .overlay-header {
+            height: 50px;
+            background: #111;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--neon);
+        }
+
+        .close-btn {
+            background: red;
+            color: white;
+            border: none;
             padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
             font-weight: bold;
         }
 
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #555;
+        iframe {
+            flex-grow: 1;
+            width: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
 
-<header>
+<div class="hero">
     <h1>KIVENIOO HUB</h1>
-    <p>أفضل ألعاب الويب بجرافيكس عالي - العب الآن</p>
-</header>
+    <p style="color: var(--neon);">ألعاب HD 3D - تجربة سينمائية كاملة</p>
+</div>
 
 <div class="container">
-
-    <div class="game-card">
-        <iframe src="https://games.poki.com/en/g/rally-champion" allowfullscreen></iframe>
+    
+    <div class="game-card" onclick="openGame('https://games.poki.com/en/g/combat-online')">
+        <img src="https://img.gamedistribution.com/3966099b244d4766be336a11e8f237f8-512x512.jpeg" alt="Combat Online">
         <div class="game-info">
-            <span class="game-title">Rally Champion (3D)</span>
-            <span class="play-now">العب</span>
+            <span class="game-title">Combat Online (3D)</span>
+            <small style="color: #666;">أكشن وضرب نار</small>
         </div>
     </div>
 
-    <div class="game-card">
-        <iframe src="https://www.retrogames.cc/embed/10042-tekken-3.html" allowfullscreen></iframe>
+    <div class="game-card" onclick="openGame('https://games.poki.com/en/g/venge-io')">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a4/0f/5c/a40f5cca-0096-7c9e-5e26-2a83151f1f9e/AppIcon-0-0-1x_U007emarketing-0-5-0-85-220.png/1200x630wa.png" alt="Venge.io">
         <div class="game-info">
-            <span class="game-title">Tekken 3</span>
-            <span class="play-now">قتال</span>
+            <span class="game-title">Venge.io (FPS)</span>
+            <small style="color: #666;">شبه Deadshot تماماً</small>
         </div>
     </div>
 
-    <div class="game-card">
-        <iframe src="https://www.retrogames.cc/embed/19323-sonic-the-hedgehog-usa-europe.html" allowfullscreen></iframe>
+    <div class="game-card" onclick="openGame('https://games.poki.com/en/g/rally-champion')">
+        <img src="https://img.poki.com/65306660-6397-4b71-b0e6-993d0f0c055c.png" alt="Rally">
         <div class="game-info">
-            <span class="game-title">Sonic Adventures</span>
-            <span class="play-now">سرعة</span>
+            <span class="game-title">Rally Champion</span>
+            <small style="color: #666;">سباق سيارات واقعي</small>
         </div>
     </div>
 
-    <div class="game-card">
-        <iframe src="https://games.poki.com/en/g/soccer-skills-world-cup" allowfullscreen></iframe>
-        <div class="game-info">
-            <span class="game-title">Soccer World Cup</span>
-            <span class="play-now">كرة قدم</span>
-        </div>
-    </div>
-
-    <div class="game-card">
-        <iframe src="https://www.retrogames.cc/embed/7473-metal-slug-super-vehicle-001.html" allowfullscreen></iframe>
-        <div class="game-info">
-            <span class="game-title">Metal Slug</span>
-            <span class="play-now">أكشن</span>
-        </div>
-    </div>
-
-    <div class="game-card">
-        <iframe src="https://games.poki.com/en/g/subway-surfers" allowfullscreen></iframe>
+    <div class="game-card" onclick="openGame('https://games.poki.com/en/g/subway-surfers')">
+        <img src="https://img.poki.com/8321683935267a840e53a39e388f6a9e.png" alt="Subway">
         <div class="game-info">
             <span class="game-title">Subway Surfers</span>
-            <span class="play-now">مغامرة</span>
+            <small style="color: #666;">مغامرة وسرعة</small>
+        </div>
+    </div>
+
+    <div class="game-card" onclick="openGame('https://games.poki.com/en/g/narrow-one')">
+        <img src="https://img.poki.com/974b77f972b9a7c369e9a4d33a696232.png" alt="Narrow">
+        <div class="game-info">
+            <span class="game-title">Narrow.One</span>
+            <small style="color: #666;">قتال بالأسهم 3D</small>
+        </div>
+    </div>
+
+    <div class="game-card" onclick="openGame('https://games.poki.com/en/g/moto-x3m')">
+        <img src="https://img.poki.com/131713d07e1570776b00511f5d6f194c.png" alt="Moto">
+        <div class="game-info">
+            <span class="game-title">Moto X3M</span>
+            <small style="color: #666;">سباق موتوسيكلات</small>
         </div>
     </div>
 
 </div>
 
-<footer>
-    <p>جميع الحقوق محفوظة لقناة kivenioo © 2026</p>
-</footer>
+<div class="game-overlay" id="gameOverlay">
+    <div class="overlay-header">
+        <span id="currentTitle" style="font-weight: bold; color: var(--neon);">جاري التحميل...</span>
+        <button class="close-btn" onclick="closeGame()">إغلاق اللعبة X</button>
+    </div>
+    <iframe id="gameIframe" src=""></iframe>
+</div>
+
+<script>
+    function openGame(url) {
+        const overlay = document.getElementById('gameOverlay');
+        const iframe = document.getElementById('gameIframe');
+        
+        overlay.classList.add('active');
+        iframe.src = url;
+        
+        // إخفاء الـ scroll بتاع الصفحة الأساسية
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeGame() {
+        const overlay = document.getElementById('gameOverlay');
+        const iframe = document.getElementById('gameIframe');
+        
+        overlay.classList.remove('active');
+        iframe.src = ''; // إيقاف اللعبة والصوت
+        document.body.style.overflow = 'auto';
+    }
+</script>
 
 </body>
 </html>
