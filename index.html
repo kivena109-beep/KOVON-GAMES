@@ -9,7 +9,7 @@
         :root { --neon: #00f3ff; --purple: #bc13fe; }
         body, html { margin: 0; padding: 0; height: 100%; background: #000; font-family: 'Cairo', sans-serif; overflow-x: hidden; color: white; }
 
-        /* خلفية الفيديو السينمائية */
+        /* خلفية الفيديو السينمائية الفخمة */
         .video-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             object-fit: cover; filter: brightness(0.4) blur(2px);
@@ -66,12 +66,18 @@
             background: rgba(0,0,0,0.8); border-top: 1px solid var(--neon);
         }
 
+        /* زر "إلعب الآن" لضمان تفاعل المستخدم وتشغيل اللعبة */
         .play-btn {
             margin-top: 10px; display: inline-block; padding: 5px 15px;
             background: var(--neon); color: black; border-radius: 5px; font-size: 0.8rem;
+            transition: 0.2s;
+        }
+        .game-card:hover .play-btn {
+            background: white;
+            box-shadow: 0 0 10px white;
         }
 
-        footer { text-align: center; padding: 20px; color: #555; font-size: 0.8rem; }
+        footer { text-align: center; padding: 20px; color: #555; font-size: 0.8rem; position: relative; z-index: 10; }
     </style>
 </head>
 <body>
@@ -94,7 +100,7 @@
 </footer>
 
 <script>
-    // قائمة الألعاب - اخترت لك روابط مباشرة وسريعة جداً
+    // قائمة الألعاب - اخترت لك روابط سريعة ومباشرة جداً لتشغيل الـ 3D
     const games = [
         {title: "Combat Online", id: "3966099b244d4766be336a11e8f237f8"},
         {title: "Madalin Cars 2", id: "83424194091e4889899147746eb0639d"},
@@ -102,30 +108,32 @@
         {title: "Moto X3M 3D", id: "131713d07e1570776b00511f5d6f194c"},
         {title: "Rebel Forces", id: "f73756d9532d43108f9c158580556e43"},
         {title: "Drift King 3D", id: "d7f1d439b1a044238e8e7a03007f3f1e"},
-        {title: "Airport Clash", id: "f2700ca7256149ef9fa67916964259b3"},
+        {title: "Airport Clash 3D", id: "f2700ca7256149ef9fa67916964259b3"},
         {title: "Subway Runner", id: "f92087640f0c436688755b4869894371"},
         {title: "Zombie Road", id: "b3f07a760f0c436688755b4869894371"},
         {title: "Basketball Stars", id: "f182c12574e44431945116743956485d"},
-        {title: "City Parking", id: "68779956461947e44431955610850244"},
-        {title: "Tank Hero", id: "02443965561085024469956461947e44"}
+        {title: "Realistic City Parking", id: "68779956461947e44431955610850244"},
+        {title: "Tank Hero 3D", id: "02443965561085024469956461947e44"}
     ];
 
     const grid = document.getElementById('gameGrid');
     
+    // بناء الكروت بروابط تفتح في صفحة جديدة
     games.forEach(g => {
-        // هنا السر: استخدمنا رابط مباشر يفتح في صفحة جديدة
+        // الحل السحري: استخدام عنصر a برابط مباشر و target="_blank"
         const card = document.createElement('a');
         card.className = 'game-card';
-        card.href = `https://html5.gamedistribution.com/${g.id}/`;
-        card.target = "_blank"; // يفتح في Tab جديد عشان اللعبة تشتغل 100%
+        // الرابط المباشر للعبة على سيرفر Gamedistribution المفتوح
+        card.href = `https://html5.gamedistribution.com/${g.id}/?gdpr-tracking=0&tag=poki`;
+        card.target = "_blank"; // يفتح في Tab جديد لضمان التشغيل وأقصى سرعة
         
         card.innerHTML = `
-            <div class="badge">4K 3D</div>
-            <img src="https://img.gamedistribution.com/${g.id}-512x512.jpeg">
+            <div class="badge">ULTRA 3D</div>
+            <img src="https://img.gamedistribution.com/${g.id}-512x512.jpeg" loading="lazy">
             <div class="game-info">
                 ${g.title}
                 <br>
-                <span class="play-btn">إلعب الآن ⚡</span>
+                <span class="play-btn">إلعب الآن 🚀</span>
             </div>
         `;
         grid.appendChild(card);
