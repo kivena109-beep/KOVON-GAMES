@@ -3,150 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO HUB | 3D ULTIMATE</title>
+    <title>KIVENIOO ULTRA GAMING</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00f3ff; --purple: #bc13fe; --dark: #050505; }
+        :root { --neon: #00f3ff; --purple: #bc13fe; --bg-dark: #020205; }
         
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--dark); font-family: 'Cairo', sans-serif; overflow-x: hidden; color: white; scroll-behavior: smooth; }
+        body, html { margin: 0; padding: 0; height: 100%; background-color: var(--bg-dark); font-family: 'Cairo', sans-serif; overflow-x: hidden; color: white; }
 
-        /* خلفية الفيديو السينمائية المريحة */
-        .video-bg {
+        /* خلفية الجيمنج المتحركة (النيون) */
+        .gaming-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            object-fit: cover; filter: brightness(0.25) contrast(1.1);
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); /* ملمس كربون فايبر */
+            background-color: #05050a;
         }
 
-        .overlay-dark {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.9) 100%);
-            z-index: -1;
+        /* تأثير الخطوط الضوئية اللي بتتحرك */
+        .neon-lines {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-image: 
+                linear-gradient(var(--neon) 1px, transparent 1px),
+                linear-gradient(90deg, var(--neon) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center;
+            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+            opacity: 0.15;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            from { background-position: 0 0; }
+            to { background-position: 50px 50px; }
         }
 
         header {
-            padding: 40px 20px; text-align: center; border-bottom: 2px solid var(--neon);
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 35px 20px; text-align: center; border-bottom: 2px solid var(--purple);
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 5px 20px rgba(188, 19, 254, 0.3);
         }
 
         header h1 {
-            font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 6vw, 3.5rem); margin: 0;
-            background: linear-gradient(90deg, #fff, var(--neon), var(--purple), #fff);
-            background-size: 200%; animation: glow 5s linear infinite;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; letter-spacing: 5px;
+            font-family: 'Orbitron', sans-serif; font-size: clamp(2.2rem, 5vw, 3rem); margin: 0;
+            color: #fff; text-shadow: 0 0 10px var(--neon), 0 0 20px var(--purple);
+            letter-spacing: 4px;
         }
-
-        @keyframes glow { to { background-position: 200%; } }
-
-        /* شريط الفئات الصايع */
-        .categories {
-            display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap;
-        }
-        .cat-tag {
-            padding: 5px 15px; border: 1px solid var(--neon); border-radius: 20px;
-            font-size: 0.8rem; cursor: pointer; transition: 0.3s; background: rgba(0, 243, 255, 0.05);
-        }
-        .cat-tag:hover { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); }
 
         .container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 30px; padding: 50px 20px; max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px; padding: 40px 20px; max-width: 1300px; margin: 0 auto;
         }
 
-        /* كارت اللعبة بنظام Glassmorphism */
         .game-card {
-            background: rgba(255, 255, 255, 0.03); border-radius: 25px; overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            text-decoration: none; color: white; display: block; position: relative;
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05); border-radius: 20px; overflow: hidden;
+            border: 1px solid rgba(0, 243, 255, 0.2); cursor: pointer;
+            transition: 0.4s; text-decoration: none; color: white; display: block;
+            backdrop-filter: blur(5px);
         }
 
         .game-card:hover {
-            transform: translateY(-15px) scale(1.02);
+            transform: scale(1.07) translateY(-10px);
             border-color: var(--neon);
-            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.25);
-            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 25px var(--neon);
+            background: rgba(0, 243, 255, 0.1);
         }
 
-        .game-card img {
-            width: 100%; height: 180px; object-fit: cover;
-            border-bottom: 2px solid rgba(255,255,255,0.05);
+        .game-card img { width: 100%; height: 160px; object-fit: cover; }
+        .game-info { padding: 15px; text-align: center; font-weight: bold; font-size: 1rem; }
+        
+        .play-now {
+            margin-top: 10px; padding: 6px 15px; background: var(--purple);
+            border-radius: 5px; font-size: 0.8rem; display: inline-block;
         }
-
-        .game-info { padding: 20px; text-align: center; }
-        .game-info span { font-size: 1.1rem; font-weight: 700; display: block; margin-bottom: 10px; }
-
-        .play-btn {
-            padding: 8px 25px; background: linear-gradient(45deg, var(--neon), var(--purple));
-            color: white; border-radius: 50px; font-size: 0.85rem; font-weight: bold;
-            display: inline-block; transition: 0.3s; border: none;
-        }
-
-        .game-card:hover .play-btn { transform: scale(1.1); box-shadow: 0 0 20px var(--neon); }
-
-        footer { text-align: center; padding: 40px; color: rgba(255,255,255,0.2); font-family: 'Orbitron'; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-<video class="video-bg" autoplay loop muted playsinline>
-    <source src="https://v.ftcdn.net/05/56/15/45/700_F_556154562_AsLdZtZf1D6CgGv9p0AAmf8m9K0ZpW6m_ST.mp4" type="video/mp4">
-</video>
-<div class="overlay-dark"></div>
+<div class="gaming-bg"></div>
+<div class="neon-lines"></div>
 
 <header>
-    <h1>KIVENIOO HUB</h1>
-    <div class="categories">
-        <div class="cat-tag">#Shooter</div>
-        <div class="cat-tag">#Racing</div>
-        <div class="cat-tag">#3D_Extreme</div>
-        <div class="cat-tag">#Multiplayer</div>
-    </div>
+    <h1>KIVENIOO ELITE</h1>
+    <p style="color: var(--neon); margin-top: 10px; font-weight: bold; font-size: 0.8rem;">ULTRA 3D PERFORMANCE</p>
 </header>
 
 <div class="container" id="gameGrid"></div>
 
-<footer>
-    ESTABLISHED 2026 // KIVENIOO PRIVATE SERVER
-</footer>
-
-<audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-modern-technology-select-3124.mp3"></audio>
-
 <script>
-    const hoverSfx = document.getElementById('hoverSound');
-    hoverSfx.volume = 0.2;
-
     const games = [
         {title: "Combat Online", url: "https://www.miniplay.com/embed/combat-online", img: "https://img.gamedistribution.com/3966099b244d4766be336a11e8f237f8-512x512.jpeg"},
         {title: "Madalin Cars 2", url: "https://www.miniplay.com/embed/madalin-stunt-cars-2", img: "https://img.gamedistribution.com/83424194091e4889899147746eb0639d-512x512.jpeg"},
         {title: "Moto X3M 3D", url: "https://www.miniplay.com/embed/moto-x3m-spooky-land", img: "https://img.gamedistribution.com/131713d07e1570776b00511f5d6f194c-512x512.jpeg"},
         {title: "Sniper Clash 3D", url: "https://www.miniplay.com/embed/sniper-clash-3d", img: "https://img.gamedistribution.com/d69e4f16599b45629c158580556e438c-512x512.jpeg"},
-        {title: "Shell Shockers", url: "https://www.miniplay.com/embed/shell-shockers", img: "https://img.gamedistribution.com/f73756d9532d43108f9c158580556e43-512x512.jpeg"},
+        {title: "Subway Surfers", url: "https://www.miniplay.com/embed/subway-surfers", img: "https://img.gamedistribution.com/f92087640f0c436688755b4869894371-512x512.jpeg"},
         {title: "Drift Hunters", url: "https://www.miniplay.com/embed/drift-hunters", img: "https://img.gamedistribution.com/d7f1d439b1a044238e8e7a03007f3f1e-512x512.jpeg"},
-        {title: "Venge.io", url: "https://www.miniplay.com/embed/venge-io", img: "https://img.gamedistribution.com/f73756d9532d43108f9c158580556e43-512x512.jpeg"},
+        {title: "Shell Shockers", url: "https://www.miniplay.com/embed/shell-shockers", img: "https://img.gamedistribution.com/f73756d9532d43108f9c158580556e43-512x512.jpeg"},
         {title: "Bullet Force", url: "https://www.miniplay.com/embed/bullet-force", img: "https://img.gamedistribution.com/3966099b244d4766be336a11e8f237f8-512x512.jpeg"}
     ];
 
     const grid = document.getElementById('gameGrid');
-    
     games.forEach(g => {
         const card = document.createElement('a');
         card.className = 'game-card';
         card.href = g.url;
         card.target = "_blank";
-        
-        // تشغيل صوت عند تمرير الماوس
-        card.onmouseenter = () => {
-            hoverSfx.currentTime = 0;
-            hoverSfx.play().catch(()=>{});
-        };
-        
         card.innerHTML = `
-            <img src="${g.img}" alt="${g.title}">
+            <img src="${g.img}">
             <div class="game-info">
-                <span>${g.title}</span>
-                <div class="play-btn">START GAME ⚡</div>
+                ${g.title} <br>
+                <span class="play-now">PLAY NOW ⚡</span>
             </div>
         `;
         grid.appendChild(card);
