@@ -3,49 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO ELITE GAMING</title>
+    <title>KIVENIOO MEGA HUB | +70 GAMES</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
     <style>
         :root { --main-color: #00ff88; --accent: #7000ff; --bg-dark: #08080c; --card-bg: #12121a; --text: #ffffff; }
         body.light-mode { --bg-dark: #f0f2f5; --card-bg: #ffffff; --text: #1a1a1a; --main-color: #007bff; }
 
         body { background: var(--bg-dark); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; transition: 0.4s; overflow-x: hidden; }
-
-        /* خلفية جزيئات متحركة بسيطة بدل الفيديو لسرعة الموبايل */
         .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% -20%, var(--accent), transparent 40%); z-index: -1; opacity: 0.3; }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .logo { font-family: 'Rajdhani', sans-serif; font-size: 2rem; color: var(--main-color); text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 15px var(--main-color); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px var(--main-color); }
 
-        .search-box { background: var(--card-bg); border: 2px solid var(--main-color); border-radius: 12px; padding: 8px 15px; display: flex; align-items: center; }
-        .search-box input { background: transparent; border: none; color: var(--text); outline: none; width: 150px; font-family: 'Cairo'; }
+        .search-box { background: var(--card-bg); border: 2px solid var(--main-color); border-radius: 12px; padding: 5px 15px; display: flex; align-items: center; }
+        .search-box input { background: transparent; border: none; color: var(--text); outline: none; width: 120px; font-family: 'Cairo'; }
 
-        .hero { text-align: center; padding: 60px 20px; }
-        .hero h2 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 900; }
-        .hero p { opacity: 0.7; font-size: 1.1rem; }
+        .hero { text-align: center; padding: 40px 20px; }
+        .hero h2 { font-size: 2rem; margin-bottom: 5px; font-weight: 900; }
+        .hero p { opacity: 0.7; font-size: 1rem; color: var(--main-color); }
 
-        .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 0 5% 50px; }
+        .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 0 5% 50px; }
 
-        .card { background: var(--card-bg); border-radius: 20px; overflow: hidden; position: relative; transition: 0.4s; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
-        .card:hover { transform: translateY(-15px) scale(1.02); border-color: var(--main-color); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0, 255, 136, 0.2); }
+        .card { background: var(--card-bg); border-radius: 15px; overflow: hidden; position: relative; transition: 0.4s; border: 1px solid rgba(255,255,255,0.05); }
+        .card:hover { transform: translateY(-10px); border-color: var(--main-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         
-        .card img { width: 100%; height: 180px; object-fit: cover; filter: grayscale(20%); transition: 0.4s; }
-        .card:hover img { filter: grayscale(0%); }
-
-        .card-body { padding: 20px; }
-        .card-title { font-size: 1.3rem; font-weight: 900; margin-bottom: 10px; display: block; }
+        .card img { width: 100%; height: 150px; object-fit: cover; transition: 0.4s; }
+        .card-body { padding: 15px; text-align: center; }
+        .card-title { font-size: 1.1rem; font-weight: 900; margin-bottom: 12px; display: block; height: 25px; overflow: hidden; }
         
-        .btn-play { background: var(--main-color); color: #000; padding: 10px 0; border-radius: 10px; display: block; text-align: center; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .btn-play:hover { background: #fff; transform: scale(1.05); }
-
-        .fav-heart { position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; z-index: 10; text-shadow: 0 0 10px rgba(0,0,0,0.5); transition: 0.3s; }
-        .fav-heart.active { color: #ff0055; transform: scale(1.2); }
-
-        .mode-btn { background: none; border: 1px solid var(--text); color: var(--text); padding: 5px 15px; border-radius: 8px; cursor: pointer; margin-right: 10px; }
+        .btn-play { background: var(--main-color); color: #000; padding: 8px 0; border-radius: 8px; display: block; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        
+        .fav-heart { position: absolute; top: 10px; left: 10px; font-size: 1.3rem; cursor: pointer; z-index: 10; transition: 0.3s; }
+        .fav-heart.active { color: #ff0055; }
 
         @media (max-width: 600px) {
-            .game-grid { grid-template-columns: 1fr; }
-            .hero h2 { font-size: 1.8rem; }
+            .game-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+            .card img { height: 110px; }
+            .logo { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -56,44 +50,96 @@
 <nav>
     <div class="logo">KIVENIOO</div>
     <div style="display: flex; align-items: center;">
-        <button class="mode-btn" onclick="toggleMode()">🌓</button>
+        <button onclick="document.body.classList.toggle('light-mode')" style="background:none; border:none; color:var(--text); cursor:pointer; font-size:1.2rem; margin-left:10px;">🌓</button>
         <div class="search-box">
-            <input type="text" id="search" placeholder="ابحث هنا..." onkeyup="search()">
+            <input type="text" id="search" placeholder="ابحث..." onkeyup="search()">
         </div>
     </div>
 </nav>
 
 <div class="hero">
-    <h2 id="welcomeMsg">أهلاً بك في عالم الإثارة</h2>
-    <p>أكثر من 50 لعبة 3D تعمل على جميع الأجهزة</p>
+    <h2>إمبراطورية الألعاب</h2>
+    <p id="counter">جاري تحميل +70 لعبة...</p>
 </div>
 
-<div class="game-grid" id="grid">
-    </div>
+<div class="game-grid" id="grid"></div>
 
 <script>
     const games = [
-        { name: "Minecraft 3D", img: "https://img.gamedistribution.com/f92087640f0c436688755b4869894372-512x512.jpeg", link: "https://classic.minecraft.net" },
-        { name: "Subway Surfers", img: "https://img.gamedistribution.com/f92087640f0c436688755b4869894371-512x512.jpeg", link: "https://poki.com/en/g/subway-surfers" },
-        { name: "Combat Online", img: "https://img.gamedistribution.com/3966099b244d4766be336a11e8f237f8-512x512.jpeg", link: "https://www.miniplay.com/game/combat-online" },
-        { name: "Madalin Cars 2", img: "https://img.gamedistribution.com/83424194091e4889899147746eb0639d-512x512.jpeg", link: "https://www.miniplay.com/game/madalin-stunt-cars-2" },
-        { name: "Among Us", img: "https://img.gamedistribution.com/68779956461947e44431955610850245-512x512.jpeg", link: "https://poki.com/en/g/among-us" }
-        // أضفنا أهم الألعاب لضمان التشغيل.. يمكنك تكرار النمط لباقي الـ 50
+        { n: "Minecraft 3D", i: "f92087640f0c436688755b4869894372", l: "https://classic.minecraft.net" },
+        { n: "Subway Surfers", i: "f92087640f0c436688755b4869894371", l: "https://poki.com/en/g/subway-surfers" },
+        { n: "Combat Online", i: "3966099b244d4766be336a11e8f237f8", l: "https://www.miniplay.com/game/combat-online" },
+        { n: "Madalin Cars 2", i: "83424194091e4889899147746eb0639d", l: "https://www.miniplay.com/game/madalin-stunt-cars-2" },
+        { n: "Among Us", i: "68779956461947e44431955610850245", l: "https://poki.com/en/g/among-us" },
+        { n: "Sniper Clash 3D", i: "d69e4f16599b45629c158580556e438c", l: "https://www.miniplay.com/game/sniper-clash-3d" },
+        { n: "Drift Hunters", i: "d7f1d439b1a044238e8e7a03007f3f1e", l: "https://www.miniplay.com/game/drift-hunters" },
+        { n: "Moto X3M", i: "131713d07e1570776b00511f5d6f194c", l: "https://poki.com/en/g/moto-x3m" },
+        { n: "Stickman Hook", i: "7c9e5e262a83151f1f9ea40f5cca0096", l: "https://poki.com/en/g/stickman-hook" },
+        { n: "Rocket Clash 3D", i: "3966099b244d4766be336a11e8f237f9", l: "https://www.miniplay.com/game/rocket-clash-3d" },
+        { n: "Penalty Shooters 2", i: "b3f07a760f0c436688755b4869894371", l: "https://www.miniplay.com/game/penalty-shooters-2" },
+        { n: "Basketball Stars", i: "f182c12574e44431945116743956485d", l: "https://poki.com/en/g/basketball-stars" },
+        { n: "Temple Run 2", i: "1085024469956461947e444319", l: "https://poki.com/en/g/temple-run-2" },
+        { n: "Venge.io", i: "f1a1d439b1a044238e8e7a03007f3f1e", l: "https://venge.io" },
+        { n: "Shell Shockers", i: "f73756d9532d43108f9c158580556e43", l: "https://shellshock.io" },
+        { n: "Fruit Ninja", i: "3966099b244d4766be336a11e8f237f1", l: "https://poki.com/en/g/fruit-ninja" },
+        { n: "Zombie Road", i: "d69e4f16599b45629c158580556e438e", l: "https://www.miniplay.com/game/zombie-road-trip" },
+        { n: "Tank Stars", i: "f1a1d439b1a044238e8e7a03007f3f1b", l: "https://poki.com/en/g/tank-stars" },
+        { n: "8 Ball Pool", i: "b3f07a760f0c436688755b4869894375", l: "https://www.miniplay.com/game/8-ball-pool-multiplayer" },
+        { n: "Helix Jump", i: "d7f1d439b1a044238e8e7a03007f3f12", l: "https://poki.com/en/g/helix-jump" },
+        { n: "Flappy Bird", i: "f1a1d439b1a044238e8e7a03007f3f1c", l: "https://flappybird.io" },
+        { n: "Paper.io 2", i: "131713d07e1570776b00511f5d6f194d", l: "https://poki.com/en/g/paper-io-2" },
+        { n: "Hole.io", i: "f1a1d439b1a044238e8e7a03007f3f1a", l: "https://poki.com/en/g/hole-io" },
+        { n: "Slither.io", i: "d7f1d439b1a044238e8e7a03007f3f1f", l: "http://slither.io" },
+        { n: "Uno Online", i: "f182c12574e44431945116743956485a", l: "https://poki.com/en/g/uno-online" },
+        { n: "Ludo Hero", i: "7c9e5e262a83151f1f9ea40f5cca0098", l: "https://poki.com/en/g/ludo-hero" },
+        { n: "Mario 64", i: "68779956461947e44431955610850246", l: "https://www.miniplay.com/game/super-mario-64" },
+        { n: "Red Ball 4", i: "f92087640f0c436688755b4869894376", l: "https://poki.com/en/g/red-ball-4" },
+        { n: "Fireboy & Watergirl", i: "3966099b244d4766be336a11e8f237f2", l: "https://poki.com/en/g/fireboy-and-watergirl" },
+        { n: "Bullet Force", i: "02443965561085024469956461947e44", l: "https://www.miniplay.com/game/bullet-force" },
+        { n: "Brain Test", i: "68779956461947e44431955610850244", l: "https://poki.com/en/g/brain-test-tricky-puzzles" },
+        { n: "Crossy Road", i: "3966099b244d4766be336a11e8f237f3", l: "https://poki.com/en/g/crossy-road" },
+        { n: "Football Masters", i: "c6f663f77b4d13b482270929f6974b", l: "https://poki.com/en/g/football-masters" },
+        { n: "Monkey Mart", i: "f2700ca7256149ef9fa67916964259b3", l: "https://poki.com/en/g/monkey-mart" },
+        { n: "EvoWars.io", i: "b3f07a760f0c436688755b4869894373", l: "https://evowars.io" },
+        { n: "Iron Snout", i: "3965561085024469956461947e444319", l: "https://poki.com/en/g/iron-snout" },
+        { n: "Doodle Jump", i: "02443965561085024469956461947e48", l: "https://poki.com/en/g/doodle-jump" },
+        { n: "Jetpack Joyride", i: "f92087640f0c436688755b4869894374", l: "https://poki.com/en/g/jetpack-joyride" },
+        { n: "Rooftop Snipers", i: "f1a1d439b1a044238e8e7a03007f3f1c", l: "https://poki.com/en/g/rooftop-snipers" },
+        { n: "Drive Mad", i: "f182c12574e44431945116743956485f", l: "https://poki.com/en/g/drive-mad" },
+        { n: "Soccer Skills", i: "02443965561085024469956461947e45", l: "https://poki.com/en/g/soccer-skills-world-cup" },
+        { n: "Narrow.one", i: "d69e4f16599b45629c158580556e438f", l: "https://poki.com/en/g/narrow-one" },
+        { n: "Retro Bowl", i: "83424194091e4889899147746eb06391", l: "https://poki.com/en/g/retro-bowl" },
+        { n: "Parkour Race", i: "d7f1d439b1a044238e8e7a03007f3f12", l: "https://poki.com/en/g/parkour-race" },
+        { n: "Short Life", i: "131713d07e1570776b00511f5d6f194f", l: "https://poki.com/en/g/short-life" },
+        { n: "Life Games", i: "f1a1d439b1a044238e8e7a03007f3f1c", l: "https://poki.com/en/g/life-the-game" },
+        { n: "Level Devil", i: "02443965561085024469956461947e48", l: "https://poki.com/en/g/level-devil" },
+        { n: "Combat Reloaded", i: "3966099b244d4766be336a11e8f237f8", l: "https://www.miniplay.com/game/combat-reloaded" },
+        { n: "Warcall.io", i: "f92087640f0c436688755b4869894372", l: "https://warcall.io" },
+        { n: "Tetr.io", i: "d69e4f16599b45629c158580556e438d", l: "https://tetr.io" },
+        { n: "Cut The Rope", i: "83424194091e4889899147746eb0639e", l: "https://poki.com/en/g/cut-the-rope" },
+        { n: "Gold Miner", i: "f73756d9532d43108f9c158580556e44", l: "https://poki.com/en/g/gold-miner" },
+        { n: "Blocky Cars", i: "d7f1d439b1a044238e8e7a03007f3f1f", l: "https://www.miniplay.com/game/blocky-cars-online" },
+        { n: "Sausage Flip", i: "131713d07e1570776b00511f5d6f194d", l: "https://poki.com/en/g/sausage-flip" },
+        { n: "Murder", i: "f1a1d439b1a044238e8e7a03007f3f1a", l: "https://poki.com/en/g/murder" },
+        { n: "G-Switch 3", i: "02443965561085024469956461947e46", l: "https://poki.com/en/g/g-switch-3" },
+        { n: "Watercolor Sort", i: "b3f07a760f0c436688755b4869894373", l: "https://poki.com/en/g/water-color-sort" },
+        { n: "Bubbles", i: "f182c12574e44431945116743956485f", l: "https://poki.com/en/g/bubble-shooter" },
+        { n: "Chess Online", i: "68779956461947e44431955610850246", l: "https://poki.com/en/g/chess" },
+        { n: "Ludo Hero 2", i: "1085024469956461947e444320", l: "https://poki.com/en/g/ludo-hero" },
+        { n: "Amazing Word", i: "7c9e5e262a83151f1f9ea40f5cca0097", l: "https://poki.com/en/g/amazing-word-fresh" },
+        { n: "Krunker.io", i: "3966099b244d4766be336a11e8f237f1", l: "https://krunker.io" },
+        { n: "Mini Royale", i: "f92087640f0c436688755b4869894374", l: "https://miniroyale.io" },
+        { n: "Skibidi Toilet", i: "d69e4f16599b45629c158580556e438e", l: "https://www.miniplay.com/game/skibidi-toilet-io" },
+        { n: "Backrooms", i: "83424194091e4889899147746eb0639f", l: "https://www.miniplay.com/game/the-backrooms" },
+        { n: "Spider Doll", i: "d7f1d439b1a044238e8e7a03007f3f11", l: "https://poki.com/en/g/spider-doll" },
+        { n: "Penalty Challenge", i: "131713d07e1570776b00511f5d6f194e", l: "https://poki.com/en/g/penalty-challenge" },
+        { n: "Stick Merge", i: "f1a1d439b1a044238e8e7a03007f3f1b", l: "https://poki.com/en/g/stick-merge" },
+        { n: "Moto Road Rash", i: "02443965561085024469956461947e47", l: "https://www.miniplay.com/game/moto-road-rash-3d" },
+        { n: "Subway FPS", i: "b3f07a760f0c436688755b4869894375", l: "https://www.miniplay.com/game/subway-clash-3d" }
     ];
 
     let favorites = JSON.parse(localStorage.getItem('kivenioo-favs')) || [];
-
-    function toggleMode() { document.body.classList.toggle('light-mode'); }
-
-    function toggleFav(name, el) {
-        const i = favorites.indexOf(name);
-        if (i > -1) favorites.splice(i, 1);
-        else favorites.push(name);
-        localStorage.setItem('kivenioo-favs', JSON.stringify(favorites));
-        el.classList.toggle('active');
-        if(el.classList.contains('active')) el.innerText = '❤️';
-        else el.innerText = '🤍';
-    }
+    document.getElementById('counter').innerText = `تم تحميل ${games.length} لعبة بنجاح 🔥`;
 
     function render(list = games) {
         const grid = document.getElementById('grid');
@@ -101,24 +147,30 @@
             const isFav = favorites.includes(g.name);
             return `
             <div class="card">
-                <div class="fav-heart ${isFav?'active':''}" onclick="toggleFav('${g.name}', this)">${isFav?'❤️':'🤍'}</div>
-                <img src="${g.img}" alt="${g.name}">
+                <div class="fav-heart ${isFav?'active':''}" onclick="toggleFav('${g.n}', this)">${isFav?'❤️':'🤍'}</div>
+                <img src="https://img.gamedistribution.com/${g.i}-512x512.jpeg" alt="${g.n}" onerror="this.src='https://via.placeholder.com/512x512/12121a/00ff88?text=${g.n}'">
                 <div class="card-body">
-                    <span class="card-title">${g.name}</span>
-                    <a href="${g.link}" target="_blank" class="btn-play">العب الآن 🔥</a>
+                    <span class="card-title">${g.n}</span>
+                    <a href="${g.l}" target="_blank" class="btn-play">العب الآن 🔥</a>
                 </div>
             </div>`;
         }).join('');
     }
 
+    function toggleFav(name, el) {
+        const i = favorites.indexOf(name);
+        if (i > -1) favorites.splice(i, 1); else favorites.push(name);
+        localStorage.setItem('kivenioo-favs', JSON.stringify(favorites));
+        render();
+    }
+
     function search() {
         const val = document.getElementById('search').value.toLowerCase();
-        const filtered = games.filter(g => g.name.toLowerCase().includes(val));
+        const filtered = games.filter(g => g.n.toLowerCase().includes(val));
         render(filtered);
     }
 
     render();
 </script>
-
 </body>
 </html>
