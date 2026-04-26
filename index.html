@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVENIOO MEGA HUB | 70+ GAMES</title>
+    <title>KIVENIOO ULTRA HUB</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
     <style>
         :root { --main: #00ff88; --accent: #7000ff; --bg: #08080c; --card: #12121a; --text: #ffffff; }
@@ -25,15 +25,16 @@
         .card { background: var(--card); border-radius: 15px; overflow: hidden; position: relative; transition: 0.4s; border: 1px solid rgba(255,255,255,0.05); }
         .card:hover { transform: translateY(-10px); border-color: var(--main); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         
-        .card img { width: 100%; height: 140px; object-fit: cover; transition: 0.4s; }
+        .card img { width: 100%; height: 140px; object-fit: cover; }
         .card-body { padding: 15px; text-align: center; }
         .card-title { font-size: 1rem; font-weight: 900; margin-bottom: 12px; display: block; height: 25px; overflow: hidden; }
         
         .btn-play { background: var(--main); color: #000; padding: 10px 0; border-radius: 8px; display: block; text-decoration: none; font-weight: bold; font-size: 0.85rem; transition: 0.3s; }
         .btn-play:hover { background: #fff; transform: scale(1.05); }
 
-        .mc-special { border: 2px solid #4caf50 !important; box-shadow: 0 0 20px rgba(76, 175, 80, 0.4); }
-        .mc-special .btn-play { background: #4caf50; color: #fff; }
+        /* تمييز الألعاب في البداية */
+        .special-mc { border: 2px solid #4caf50 !important; }
+        .special-ds { border: 2px solid #ff4444 !important; }
 
         @media (max-width: 600px) {
             .game-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
@@ -54,15 +55,15 @@
 
 <div class="hero">
     <h2>🎮 إمبراطورية الألعاب 🎮</h2>
-    <p>Minecraft Classic + 70 لعبة | نسخة نت المدرسة</p>
+    <p>Minecraft & Deadshot | 70+ Games</p>
 </div>
 
 <div class="game-grid" id="grid"></div>
 
 <script>
     const games = [
-        // رجعنا Minecraft Classic اللي في أول كود
-        { n: "Minecraft Classic", i: "f92087640f0c436688755b4869894372", l: "https://classic.minecraft.net", s: true },
+        { n: "Minecraft Classic", i: "f92087640f0c436688755b4869894372", l: "https://classic.minecraft.net", s: "special-mc" },
+        { n: "Deadshot.io", i: "d69e4f16599b45629c158580556e438f", l: "https://deadshot.io", s: "special-ds" },
         { n: "Subway Surfers", i: "f92087640f0c436688755b4869894371", l: "https://poki.com/en/g/subway-surfers" },
         { n: "Combat Online", i: "3966099b244d4766be336a11e8f237f8", l: "https://www.miniplay.com/game/combat-online" },
         { n: "Madalin Cars 2", i: "83424194091e4889899147746eb0639d", l: "https://www.miniplay.com/game/madalin-stunt-cars-2" },
@@ -130,14 +131,13 @@
         { n: "Subway Surf 2", i: "f92087640f0c436688755b4869894371", l: "https://poki.com/en/g/subway-surfers-bali" },
         { n: "Super Mario", i: "68779956461947e44431955610850245", l: "https://www.miniplay.com/game/super-mario-bros" },
         { n: "Vector", i: "f92087640f0c436688755b4869894376", l: "https://poki.com/en/g/vector" },
-        { n: "Temple Run 1", i: "1085024469956461947e444319", l: "https://poki.com/en/g/temple-run" },
-        { n: "Chess Online", i: "68779956461947e44431955610850246", l: "https://poki.com/en/g/chess" }
+        { n: "Temple Run 1", i: "1085024469956461947e444319", l: "https://poki.com/en/g/temple-run" }
     ];
 
     function render(list = games) {
         const grid = document.getElementById('grid');
         grid.innerHTML = list.map(g => `
-            <div class="card ${g.s ? 'mc-special' : ''}">
+            <div class="card ${g.s || ''}">
                 <img src="https://img.gamedistribution.com/${g.i}-512x512.jpeg" alt="${g.n}" onerror="this.src='https://via.placeholder.com/512x512/12121a/00ff88?text=${g.n}'">
                 <div class="card-body">
                     <span class="card-title">${g.n}</span>
